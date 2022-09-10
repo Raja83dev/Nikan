@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/widgets/comment_widget.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:nikan_app/controllers/product_detail_controller.dart';
 import 'package:shimmer/shimmer.dart';
@@ -48,10 +51,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: controller.productDetail!.image!,
-                    fit: BoxFit.fitWidth,
-                  ),
+                  _topSlider(),
                   SizedBox(
                     height: 2.h,
                   ),
@@ -59,22 +59,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                     padding: EdgeInsets.symmetric(horizontal: 3.w),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            AutoSizeText(
-                              controller.productDetail!.subCategory! +
-                                  " / " +
-                                  controller.productDetail!.category!,
-                              maxLines: 1,
-                              style: PersianFonts.Yekan.copyWith(
-                                height: 1.5,
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.blue[700],
-                              ),
-                            ),
-                          ],
-                        ),
+                        _categoryTitle(),
                         Divider(),
                         AutoSizeText(
                           controller.productDetail!.title!,
@@ -89,18 +74,20 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                         SizedBox(
                           height: 2.h,
                         ),
-                        AutoSizeText(
+                        HtmlWidget(
                           controller.productDetail!.des!,
-                          maxLines: 4,
-                          style: PersianFonts.Yekan.copyWith(
-                            height: 1.5,
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black54,
-                          ),
+                          textStyle: PersianFonts.Yekan.copyWith(),
                         ),
                         SizedBox(
                           height: 2.h,
+                        ),
+                        Divider(),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        _commentsBody(),
+                        SizedBox(
+                          height: 20.h,
                         ),
                       ],
                     ),
@@ -113,6 +100,114 @@ class ProductDetailPage extends GetView<ProductDetailController> {
         ),
       );
     });
+  }
+
+  Widget _topSlider() {
+    return CachedNetworkImage(
+      imageUrl: controller.productDetail!.image!,
+      fit: BoxFit.fitWidth,
+    );
+  }
+
+  Widget _commentsBody() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            AutoSizeText(
+              "دیدگاه کاربران ",
+              style: PersianFonts.Yekan.copyWith(
+                height: 1.5,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w800,
+                color: Colors.black54,
+              ),
+            ),
+            controller.productDetail!.commentCount! > 0
+                ? CupertinoButton(
+                    onPressed: () {
+                      Get.bottomSheet(
+                        Scaffold(),
+                      );
+                    },
+                    child: AutoSizeText(
+                      controller.productDetail!.commentCount!.toString() +
+                          " دیدگاه",
+                      style: PersianFonts.Yekan.copyWith(
+                        height: 1.5,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black45,
+                      ),
+                    ),
+                  )
+                : SizedBox(),
+          ],
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
+        controller.productDetail!.commentCount! == 0
+            ? AutoSizeText(
+                "دیدگاهی برای این محصول ثبت نشده",
+                style: PersianFonts.Yekan.copyWith(
+                  height: 1.5,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black45,
+                ),
+              )
+            : Column(
+                children: List.generate(
+                    controller.productDetail!.commentCount! >= 3
+                        ? 3
+                        : controller.productDetail!.commentCount!, (index) {
+                  return CommentWidget();
+                }),
+              )
+      ],
+    );
+  }
+
+  Widget _categoryTitle() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        AutoSizeText(
+          controller.productDetail!.category! +
+              " / " +
+              controller.productDetail!.subCategory! +
+              " / " +
+              controller.productDetail!.childCategory!,
+          maxLines: 1,
+          style: PersianFonts.Yekan.copyWith(
+            height: 1.5,
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w800,
+            color: Colors.blue[700],
+          ),
+        ),
+        Row(
+          children: [
+            AutoSizeText(
+              controller.productDetail!.avrage!,
+              maxLines: 1,
+              style: PersianFonts.Yekan.copyWith(
+                height: 1.5,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w800,
+                color: Colors.yellow[700],
+              ),
+            ),
+            Icon(
+              Icons.star,
+              color: Colors.yellow[800],
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _buttonWidget() {
@@ -186,7 +281,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                       ),
                     ),
                     SizedBox(
-                      width: 2.w,
+                      width: 2.h,
                     ),
                     AutoSizeText(
                       controller.productDetail!.delPrice!.seRagham(),

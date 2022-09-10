@@ -47,7 +47,7 @@ dependencies:
   persian_number_utility:
   flutter_spinkit: 
   auto_size_text: 
-  flutter_widget_from_html:
+  flutter_widget_from_html_core: ^0.8.5
 
   flutter:
     sdk: flutter
