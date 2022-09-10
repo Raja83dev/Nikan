@@ -20,10 +20,10 @@ class CommentWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5), //shadow color
-            spreadRadius: 5, // spread radius
-            blurRadius: 7, // shadow blur radius
-            offset: const Offset(0, 3), // changes position of shadow
+            color: Colors.grey.withOpacity(0.5), 
+            spreadRadius: 5, 
+            blurRadius: 7, 
+            offset: const Offset(0, 3), 
           ),
         ],
       ),
