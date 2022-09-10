@@ -48,6 +48,7 @@ dependencies:
   flutter_spinkit: 
   auto_size_text: 
   flutter_widget_from_html_core: ^0.8.5
+  comment_tree:
 
   flutter:
     sdk: flutter

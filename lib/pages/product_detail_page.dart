@@ -12,6 +12,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:sizer/sizer.dart';
 import 'package:nikan_app/services/limit_string.dart';
+import 'package:nikan_app/models/product_detail_model.dart';
 
 class ProductDetailPage extends GetView<ProductDetailController> {
   const ProductDetailPage({Key? key}) : super(key: key);
@@ -76,7 +77,11 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                         ),
                         HtmlWidget(
                           controller.productDetail!.des!,
-                          textStyle: PersianFonts.Yekan.copyWith(),
+                          textStyle: PersianFonts.Yekan.copyWith(
+                            fontSize: 13.sp,
+                            color: Colors.black45,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                         SizedBox(
                           height: 2.h,
@@ -158,14 +163,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   color: Colors.black45,
                 ),
               )
-            : Column(
-                children: List.generate(
-                    controller.productDetail!.commentCount! >= 3
-                        ? 3
-                        : controller.productDetail!.commentCount!, (index) {
-                  return CommentWidget();
-                }),
-              )
+            : CommentWidget(commentModel: controller.productDetail!.comment!),
       ],
     );
   }
