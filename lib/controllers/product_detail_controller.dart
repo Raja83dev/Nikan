@@ -1,0 +1,15 @@
+import 'package:get/get.dart';
+import 'package:nikan_app/models/product_detail_model.dart';
+import 'package:nikan_app/services/api_service.dart';
+
+class ProductDetailController extends GetxController {
+  ProductDetail? productDetail = ProductDetail();
+  var isLoading = false.obs;
+
+  void getDetail(int id) async {
+    print(id);
+    isLoading.value = true;
+    productDetail = await ApiService.productdetail(id);
+    isLoading.value = false;
+  }
+}
