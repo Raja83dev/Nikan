@@ -87,6 +87,7 @@ class VertificationCodePage extends GetView<LoginController> {
       readOnly: controller.isSending.value,
       length: 6,
       obscureText: false,
+      keyboardType: TextInputType.phone,
       animationType: AnimationType.fade,
       pinTheme: PinTheme(
         disabledColor: Colors.grey.withOpacity(0.2),

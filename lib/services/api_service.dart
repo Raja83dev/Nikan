@@ -10,6 +10,8 @@ import 'package:nikan_app/models/products_model.dart';
 import 'package:nikan_app/models/slider_image_model.dart';
 import 'package:nikan_app/models/tag_model.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 const baseUrl = "https://nikan.info/api/v1/";
 
 class ApiService {
@@ -25,6 +27,9 @@ class ApiService {
         showSnake("خطا", data['message']);
         return false;
       } else {
+        print("Show : ${data['token']}");
+        var prefs = await SharedPreferences.getInstance();
+        prefs.setString("APP_TOKEN", data['token']);
         showSnake("انجام شد", data['message']);
         return true;
       }
@@ -46,6 +51,10 @@ class ApiService {
         showSnake("خطا", data['message']);
         return false;
       } else {
+        print("Show : ${data['token']}");
+
+        var prefs = await SharedPreferences.getInstance();
+        prefs.setString("APP_TOKEN", data['token']);
         return true;
       }
     }
@@ -156,10 +165,22 @@ class ApiService {
     var req = await http.get(Uri.parse(
       baseUrl + "forget/password?phone=" + phone.toString(),
     ));
-
   }
 
-  
+  static Future<bool> activeCode(String code) async {
+    var prefs = await SharedPreferences.getInstance();
+    print("TOKEN : ${prefs.getString("APP_TOKEN")}");
+    var req = await http
+        .post(Uri.parse(baseUrl + "code?${prefs.getString("APP_TOKEN")}&$code"));
+    print("Status Code : " + req.statusCode.toString());
+    return req.statusCode == 200;
+  }
+
+
+  static Future<void> loginWithToken() async {
+   
+   
+  }
 }
 
 void showSnake(String title, String message) {

@@ -12,8 +12,6 @@ class LoginController extends GetxController {
   TextEditingController password = TextEditingController();
 
   void login() async {
-  
-
     isSending.value = true;
     if ((await ApiService.login(phone.text, password.text)) == true) {
       Get.offAll(MainPage());
@@ -24,7 +22,7 @@ class LoginController extends GetxController {
   void signUp() async {
     isSending.value = true;
     if ((await ApiService.signup(phone.text)) == true) {
-      Get.to(()=>VertificationCodePage());
+      Get.to(() => VertificationCodePage());
     }
     isSending.value = false;
   }
@@ -32,7 +30,10 @@ class LoginController extends GetxController {
   var code = "".obs;
   void activeCode() async {
     isSending.value = true;
-    
+    bool isOk = await ApiService.activeCode(code.value);
+    if (isOk) {
+      Get.offAll(() => MainPage());
+    }
     isSending.value = false;
   }
 
@@ -41,6 +42,6 @@ class LoginController extends GetxController {
     await ApiService.sendPasstoPhoneNumber(phone.text);
     showSnake("موفق", "کد تایید به شماره تلفن شما ارسال شد");
     isSending.value = false;
-    Get.off(()=>LoginPage());
+    Get.off(() => LoginPage());
   }
 }

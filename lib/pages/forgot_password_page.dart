@@ -22,6 +22,8 @@ class ForgotPasswordPage extends GetView<LoginController> {
           child: Column(
             
             children: [
+
+              SizedBox(height: 8.h,),
               SizedBox(
                 width: 80.w,
                 height: 30.h,

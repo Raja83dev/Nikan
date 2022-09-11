@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nikan_app/languages/messags.dart';
 import 'package:nikan_app/page_binding.dart';
 import 'package:nikan_app/root_binding.dart';
+import 'package:nikan_app/services/api_service.dart';
+
 import 'package:sizer/sizer.dart';
 
-void main() {
+void main() async {
+  await ApiService.loginWithToken();
+  
   runApp(MainApp());
 }
 

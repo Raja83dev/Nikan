@@ -26,6 +26,8 @@ controller.isSending.value=false;
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+               SizedBox(height: 8.h,),
+               
               SizedBox(
                 width: 80.w,
                 height: 30.h,
