@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/pages/search_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:nikan_app/controllers/home_controller.dart';
@@ -52,7 +53,7 @@ class HomePage extends GetView<HomeController> {
               child: TextField(
                 readOnly: true,
                 onTap: () {
-                  Get.toNamed('/search');
+                  Get.to(()=>SearchPage());
                 },
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(

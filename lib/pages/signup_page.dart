@@ -4,6 +4,7 @@ import 'package:flutter_switch_clipper/flutter_switch_clipper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/login_controller.dart';
+import 'package:nikan_app/pages/login_page.dart';
 
 import 'package:nikan_app/widgets/customized_text_field.dart';
 import 'package:nikan_app/widgets/dont_have_account_button.dart';
@@ -91,7 +92,7 @@ controller.isSending.value=false;
                 text: "have_account".tr,
                 btnText: "login".tr,
                 clicked: () {
-                  Get.toNamed("/login");
+                  Get.to(()=>LoginPage());
                 },
               ),
             ],

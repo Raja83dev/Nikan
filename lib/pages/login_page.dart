@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/login_controller.dart';
+import 'package:nikan_app/pages/forgot_password_page.dart';
+import 'package:nikan_app/pages/signup_page.dart';
 import 'package:nikan_app/widgets/customized_text_field.dart';
 import 'package:nikan_app/widgets/dont_have_account_button.dart';
 import 'package:nikan_app/widgets/limited_text.dart';
@@ -15,7 +17,7 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
 controller.isSending.value=false;
-    controller.phone.text = "";
+ 
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -89,7 +91,7 @@ controller.isSending.value=false;
                         obscure: true,
                         suffix: TextButton(
                           onPressed: () {
-                            Get.toNamed('/forgot_password');
+                            Get.to(()=>ForgotPasswordPage());
                           },
                           child: Text(
                             "forgot_password".tr,
@@ -121,7 +123,7 @@ controller.isSending.value=false;
                 text: "dont_have_account".tr,
                 btnText: "sign_up".tr,
                 clicked: () {
-                  Get.to("/signup");
+                  Get.to(()=>SignUpPage());
                 },
               ),
             ],

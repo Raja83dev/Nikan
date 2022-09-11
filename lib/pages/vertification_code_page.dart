@@ -16,7 +16,7 @@ class VertificationCodePage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.isSending.value=false;
+    controller.isSending.value = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() {
@@ -101,11 +101,12 @@ class VertificationCodePage extends GetView<LoginController> {
       ),
       animationDuration: Duration(milliseconds: 300),
       enableActiveFill: true,
-      onCompleted: (v) {
+      onCompleted: (String v) {
         controller.code.value = v;
+        controller.activeCode();
       },
       onChanged: (value) {
-        print(value);
+        controller.code.value = value;
       },
       beforeTextPaste: (text) {
         print("Allowing to paste $text");

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/login_controller.dart';
+import 'package:nikan_app/pages/signup_page.dart';
 import 'package:nikan_app/widgets/main_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,16 +10,17 @@ import '../widgets/customized_text_field.dart';
 import '../widgets/dont_have_account_button.dart';
 
 class ForgotPasswordPage extends GetView<LoginController> {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+  ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     controller.isSending.value=false;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
+            
             children: [
               SizedBox(
                 width: 80.w,
@@ -66,6 +68,7 @@ class ForgotPasswordPage extends GetView<LoginController> {
                 if(controller.isSending.value==true){
                   return;
                 }
+                FocusScope.of(context).nextFocus();
                 controller.forgotPass();
               }),
               SizedBox(
@@ -75,13 +78,13 @@ class ForgotPasswordPage extends GetView<LoginController> {
                 text: "dont_have_account".tr,
                 btnText: "sign_up".tr,
                 clicked: () {
-                  Get.offNamed("/signup");
+                  Get.off(()=>SignUpPage());
                 },
               ),
             ],
           ),
-        ).paddingSymmetric(horizontal: 5.w),
-      ),
+        ),
+      ).paddingSymmetric(horizontal: 5.w),
     );
   }
 }
