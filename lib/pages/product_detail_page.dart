@@ -133,7 +133,34 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                 ? CupertinoButton(
                     onPressed: () {
                       Get.bottomSheet(
-                        Scaffold(),
+                        Scaffold(
+                          appBar: AppBar(
+                            backgroundColor: Colors.indigo,
+                            title: Text(
+                              "دیدگاه کاربران",
+                              style: PersianFonts.Yekan.copyWith(
+                                height: 1.5,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          body: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 3.w),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: List.generate(
+                                    controller.productDetail!.commentCount!,
+                                    (index) {
+                                  return CommentWidget(
+                                      commentModel: controller
+                                          .productDetail!.comment![index]);
+                                }),
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     },
                     child: AutoSizeText(
@@ -163,7 +190,15 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   color: Colors.black45,
                 ),
               )
-            : CommentWidget(commentModel: controller.productDetail!.comment!),
+            : Column(
+                children: List.generate(
+                    controller.productDetail!.commentCount! >= 3
+                        ? 3
+                        : controller.productDetail!.commentCount!, (index) {
+                  return CommentWidget(
+                      commentModel: controller.productDetail!.comment![index]);
+                }),
+              ),
       ],
     );
   }
