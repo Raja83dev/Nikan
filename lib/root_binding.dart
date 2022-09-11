@@ -19,5 +19,6 @@ class RootBinding extends Bindings {
     Get.lazyPut<SearchController>(() => SearchController(), fenix: true);
     Get.lazyPut<ProductDetailController>(() => ProductDetailController(),
         fenix: true);
+
   }
 }

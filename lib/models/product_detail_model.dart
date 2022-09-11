@@ -41,7 +41,7 @@ class ProductDetail {
     commentCount = json['comment_count'];
     avrage = json['avrage'];
     price = json['price'];
-    delPrice = json['del_price'];
+    delPrice = json['del_price'].toString();
     image = json['image'];
     des = json['des'];
     stock = json['stock'];

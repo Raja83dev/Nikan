@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/controllers/login_controller.dart';
 import 'package:nikan_app/widgets/main_button.dart';
 import 'package:sizer/sizer.dart';
 
 import '../widgets/customized_text_field.dart';
 import '../widgets/dont_have_account_button.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordPage extends GetView<LoginController> {
   const ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    controller.isSending.value=false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -52,14 +54,20 @@ class ForgotPasswordPage extends StatelessWidget {
                 ),
               ),
               CustomizedTextField(
-                  hintText: "email".tr,
-                  icon: Icons.email,
-                  keyboardtype: TextInputType.emailAddress,
+                  hintText: "phone".tr,
+                  icon: Icons.phone_outlined,
+                  keyboardtype: TextInputType.phone,
+                  controller: controller.phone,
                   obscure: false),
               SizedBox(
                 height: 2.h,
               ),
-              MainButton(text: "next".tr, clicked: () {}),
+              MainButton(text: controller.isSending.value ? "در حال ارسال" : "ارسال".tr, clicked: () {
+                if(controller.isSending.value==true){
+                  return;
+                }
+                controller.forgotPass();
+              }),
               SizedBox(
                 height: 2.h,
               ),

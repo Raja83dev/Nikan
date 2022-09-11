@@ -21,7 +21,8 @@ class MainApp extends StatelessWidget {
         getPages: pages,
         themeMode: ThemeMode.light,
         initialBinding: RootBinding(),
-        initialRoute: '/main',
+        
+        initialRoute: '/login',
         translations: Messages(),
         locale: Locale('fa', 'IR'),
         //

@@ -25,6 +25,7 @@ class ApiService {
         showSnake("خطا", data['message']);
         return false;
       } else {
+        showSnake("انجام شد", data['message']);
         return true;
       }
     }
@@ -36,6 +37,8 @@ class ApiService {
     var req = await http.post(Uri.parse(baseUrl + "register"), body: {
       "phone": phone,
     });
+
+    print("STATUS -: ${req.statusCode}");
 
     if (req.statusCode == 200) {
       var data = jsonDecode(req.body);
@@ -136,6 +139,7 @@ class ApiService {
   }
 
   static Future<ProductDetail?> productdetail(int id) async {
+    print("id : " + id.toString());
     var req = await http.get(Uri.parse(
       baseUrl + "product/details/" + id.toString(),
     ));
@@ -146,6 +150,13 @@ class ApiService {
       return (detail);
     }
     return null;
+  }
+
+  static Future<void> sendPasstoPhoneNumber(String phone) async {
+    var req = await http.get(Uri.parse(
+      baseUrl + "forget/password?phone=" + phone.toString(),
+    ));
+    
   }
 }
 

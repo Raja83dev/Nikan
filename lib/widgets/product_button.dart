@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/pages/product_detail_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:nikan_app/widgets/limited_text.dart';
 import 'package:sizer/sizer.dart';
@@ -22,7 +23,8 @@ class ProductButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed('/detail', arguments: id);
+        Get.to(ProductDetailPage(), arguments: id);
+ 
       },
       child: Padding(
         padding: EdgeInsets.all(2.w),

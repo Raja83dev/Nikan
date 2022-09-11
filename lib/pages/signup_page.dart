@@ -16,7 +16,7 @@ class SignUpPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     controller.phone.text = "";
-
+controller.isSending.value=false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -63,11 +63,12 @@ class SignUpPage extends GetView<LoginController> {
                 height: 1.h,
               ),
               CustomizedTextField(
-                  controller: controller.phone,
-                  hintText: "phone".tr,
-                  icon: Icons.phone_outlined,
-                  keyboardtype: TextInputType.phone,
-                  obscure: false),
+                controller: controller.phone,
+                hintText: "phone".tr,
+                icon: Icons.phone_outlined,
+                keyboardtype: TextInputType.phone,
+                obscure: false,
+              ),
               SizedBox(
                 height: 3.h,
               ),
@@ -90,7 +91,7 @@ class SignUpPage extends GetView<LoginController> {
                 text: "have_account".tr,
                 btnText: "login".tr,
                 clicked: () {
-                  Get.offNamed("/login");
+                  Get.toNamed("/login");
                 },
               ),
             ],

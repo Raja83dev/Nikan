@@ -6,7 +6,10 @@ class ProductDetailController extends GetxController {
   ProductDetail? productDetail = ProductDetail();
   var isLoading = false.obs;
 
+  var selectedSizeIndex = 0.obs;
+
   void getDetail(int id) async {
+   
     print(id);
     isLoading.value = true;
     productDetail = await ApiService.productdetail(id);

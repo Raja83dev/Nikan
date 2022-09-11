@@ -14,7 +14,7 @@ import 'package:lottie/lottie.dart';
 class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
-
+controller.isSending.value=false;
     controller.phone.text = "";
     return Scaffold(
       backgroundColor: Colors.white,
@@ -97,27 +97,7 @@ class LoginPage extends GetView<LoginController> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      CupertinoButton(
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.circle_outlined,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(
-                              width: 2.w,
-                            ),
-                            LimitedText(
-                              text: "privacy".tr,
-                              fontSize: 10.sp,
-                            )
-                          ],
-                        ),
-                        onPressed: () {},
-                      ),
+                   
                       SizedBox(
                         height: 2.h,
                       ),
@@ -141,7 +121,7 @@ class LoginPage extends GetView<LoginController> {
                 text: "dont_have_account".tr,
                 btnText: "sign_up".tr,
                 clicked: () {
-                  Get.offNamed("/signup");
+                  Get.to("/signup");
                 },
               ),
             ],
