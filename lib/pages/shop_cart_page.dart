@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
+import 'package:nikan_app/widgets/shop_card_item.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:sizer/sizer.dart';
 
@@ -23,18 +24,22 @@ class ShopCatPage extends GetView<ShopCartController> {
           ),
         ),
       ),
-      body: Obx(() {
-        if (controller.isloading.value == true) {
-          return Center(
-            child: SpinKitFadingGrid(color: Colors.indigo),
+      body: Center(
+        child: Obx(() {
+          if (controller.isloading.value == true) {
+            return SpinKitFadingGrid(color: Colors.indigo);
+          }
+          return SingleChildScrollView(
+            child: Column(
+              children: List.generate(controller.products.length, (index) {
+                return ShopCartItem(
+                  model: controller.products[index],
+                );
+              }),
+            ),
           );
-        }
-        return Column(
-          children: [
-            
-          ],
-        );
-      }),
+        }),
+      ),
     );
   }
 }
