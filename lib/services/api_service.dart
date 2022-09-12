@@ -148,9 +148,11 @@ class ApiService {
   }
 
   static Future<ProductDetail?> productdetail(int id) async {
+    var prefs = await SharedPreferences.getInstance();
     print("id : " + id.toString());
     var req = await http.get(Uri.parse(
-      baseUrl + "product/details/" + id.toString(),
+      baseUrl +
+          "product/details/${id.toString()}?token=${prefs.getString("APP_TOKEN")}",
     ));
 
     if (req.statusCode == 200) {
@@ -185,7 +187,7 @@ class ApiService {
     return req.statusCode == 200;
   }
 
-  static Future<bool> addToCart(int id) async {
+  static Future<bool> addToCart(String id) async {
     var prefs = await SharedPreferences.getInstance();
 
     var req = await http.get(Uri.parse(
@@ -193,15 +195,13 @@ class ApiService {
 
     if (req.statusCode == 200) {
       var data = jsonDecode(req.body);
-      showSnake(data['message'], "");
+
       return true;
     }
     return false;
   }
 
-
-
-  static Future<bool> removeFromCart(int id) async {
+  static Future<bool> removeFromCart(String id) async {
     var prefs = await SharedPreferences.getInstance();
 
     var req = await http.get(Uri.parse(
@@ -209,9 +209,10 @@ class ApiService {
 
     if (req.statusCode == 200) {
       var data = jsonDecode(req.body);
-      showSnake(data['message'], "");
+
       return true;
     }
+    print(req.statusCode);
     return false;
   }
 }

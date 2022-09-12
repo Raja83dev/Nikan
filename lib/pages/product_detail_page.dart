@@ -7,6 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_switch_clipper/flutter_switch_clipper.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/services/api_service.dart';
 import 'package:nikan_app/widgets/comment_widget.dart';
 import 'package:nikan_app/widgets/product_button.dart';
 import 'package:persian_fonts/persian_fonts.dart';
@@ -332,17 +333,24 @@ class ProductDetailPage extends GetView<ProductDetailController> {
             Row(
               children: [
                 Expanded(
-                  child: Builder(builder: (context) {
+                  child: Obx(() {
+                    print("Cart Value : " + controller.productDetail!.inCart!);
+                    if (controller.isSending.value) {
+                      return Center(
+                        child: SpinKitFoldingCube(
+                          color: Colors.indigo,
+                        ),
+                      );
+                    }
+
                     if (controller.productDetail!.inCart == "200") {
                       return ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.red),
                           elevation: MaterialStateProperty.all(0),
-                          
-                        
                         ),
-                        onPressed: () {},
+                        onPressed: controller.removeFromCart,
                         child: Text(
                           "remove_from_cart".tr,
                           style: PersianFonts.Yekan.copyWith(
@@ -357,7 +365,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.indigo)),
-                      onPressed: () {},
+                      onPressed: controller.addToCart,
                       child: Text(
                         "add_to_cart".tr,
                         style: PersianFonts.Yekan.copyWith(

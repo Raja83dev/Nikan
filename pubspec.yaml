@@ -49,6 +49,7 @@ dependencies:
   auto_size_text: 
   flutter_widget_from_html_core: ^0.8.5
   pin_code_fields:
+  badges:
 
   flutter:
     sdk: flutter
