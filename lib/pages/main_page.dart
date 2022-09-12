@@ -12,10 +12,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:nikan_app/pages/categories_page.dart';
 import 'package:nikan_app/pages/home_page.dart';
-import 'package:nikan_app/widgets/banner_button.dart';
 import 'package:nikan_app/widgets/limited_text.dart';
 import 'package:nikan_app/widgets/product_button.dart';
-import 'package:nikan_app/widgets/tag_button.dart';
+
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
