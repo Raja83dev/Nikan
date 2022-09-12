@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:nikan_app/pages/shop_cart_page.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class MainPage extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
-    var pages = <Widget>[HomePage(), CategoriesPage(), Container(), Container()];
+    var pages = <Widget>[HomePage(), CategoriesPage(), ShopCatPage(), Container()];
     return Obx(() {
       return Scaffold(
         body: pages[controller.selectedPageIndex.value],
@@ -34,7 +35,7 @@ class MainPage extends GetView<MainController> {
           icons: [
             Icons.search_outlined,
             Icons.category_outlined,
-            Icons.sell_outlined,
+            Icons.shopping_cart_outlined,
             Icons.person_outlined
           ],
 

@@ -31,7 +31,13 @@ class Messages extends Translations {
           "best_brands":"محبوب ترین برند ها",
           "all_tags" : "همه دسته ها",
           "search":"جست و جو در همه ی کالا ها",
-          "cancel":"انصراف"
+          "cancel":"انصراف",
+          "sending" : "درحال ارسال",
+          "send" : "ارسال",
+          "related_products" : "محصولات مرتبط",
+          "no_image" : "بدون تصویر",
+          "toman":"تومان",
+          "nikan" : "اپلیکیشن نیکان"
         },
       };
 }

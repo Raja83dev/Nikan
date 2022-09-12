@@ -128,7 +128,7 @@ class SearchPage extends GetView<SearchController> {
                                                               .price!
                                                               .seRagham()
                                                               .toPersianDigit() +
-                                                          " تومان",
+                                                          "toman".tr,
                                                       style: PersianFonts.Yekan
                                                           .copyWith(
                                                               color: Colors.green[600],

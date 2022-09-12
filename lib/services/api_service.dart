@@ -170,16 +170,18 @@ class ApiService {
   static Future<bool> activeCode(String code) async {
     var prefs = await SharedPreferences.getInstance();
     print("TOKEN : ${prefs.getString("APP_TOKEN")}");
-    var req = await http
-        .post(Uri.parse(baseUrl + "code?${prefs.getString("APP_TOKEN")}&$code"));
+    var req = await http.post(
+        Uri.parse(baseUrl + "code?${prefs.getString("APP_TOKEN")}&$code"));
     print("Status Code : " + req.statusCode.toString());
     return req.statusCode == 200;
   }
 
-
-  static Future<void> loginWithToken() async {
-   
-   
+  static Future<bool> loginWithToken() async {
+    var prefs = await SharedPreferences.getInstance();
+    print("TOKEN : ${prefs.getString("APP_TOKEN")}");
+    var req = await http.post(
+        Uri.parse(baseUrl + "token/check/${prefs.getString("APP_TOKEN")}"));
+    return req.statusCode == 200;
   }
 }
 

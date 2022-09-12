@@ -66,7 +66,7 @@ class ForgotPasswordPage extends GetView<LoginController> {
               SizedBox(
                 height: 2.h,
               ),
-              MainButton(text: controller.isSending.value ? "در حال ارسال" : "ارسال".tr, clicked: () {
+              MainButton(text: controller.isSending.value ? "sending".tr : "send".tr, clicked: () {
                 if(controller.isSending.value==true){
                   return;
                 }
@@ -80,7 +80,7 @@ class ForgotPasswordPage extends GetView<LoginController> {
                 text: "dont_have_account".tr,
                 btnText: "sign_up".tr,
                 clicked: () {
-                  Get.off(()=>SignUpPage());
+                  Get.to(()=>SignUpPage());
                 },
               ),
             ],

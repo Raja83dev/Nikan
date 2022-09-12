@@ -63,7 +63,7 @@ class VertificationCodePage extends GetView<LoginController> {
                 ),
                 MainButton(
                     text: controller.isSending.value
-                        ? "لطفا کمی صبر کنید"
+                        ? "loading".tr
                         : "next".tr,
                     clicked: () {
                       if (controller.isSending.value) {

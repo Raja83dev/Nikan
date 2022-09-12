@@ -509,7 +509,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AutoSizeText(
-            "محصولات مرتبط",
+            "related_products".tr,
             maxLines: 4,
             style: PersianFonts.Yekan.copyWith(
               height: 1.5,
@@ -554,7 +554,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                                 : Container(
                                     child: Center(
                                       child: Text(
-                                        "No Image",
+                                        "no_image".tr,
                                         style: PersianFonts.Vazir.copyWith(
                                           fontSize: 17.sp,
                                           fontWeight: FontWeight.w800,
