@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:nikan_app/controllers/shop_cart_controller.dart';
 import 'package:nikan_app/models/product_detail_model.dart';
 import 'package:nikan_app/services/api_service.dart';
 
@@ -22,6 +23,7 @@ class ProductDetailController extends GetxController {
     var res = await ApiService.addToCart(productDetail!.id!);
     if (res == true) {
       productDetail!.inCart = "200";
+      await Get.find<ShopCartController>().getAllCarts();
     }
 
     isSending.value = false;
@@ -32,6 +34,7 @@ class ProductDetailController extends GetxController {
     var res = await ApiService.removeFromCart(productDetail!.id!);
     if (res == true) {
       productDetail!.inCart = "100";
+      await Get.find<ShopCartController>().getAllCarts();
     }
 
     isSending.value = false;
