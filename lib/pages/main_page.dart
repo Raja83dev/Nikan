@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:nikan_app/pages/shop_cart_page.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
@@ -15,6 +16,7 @@ import 'package:nikan_app/widgets/banner_button.dart';
 import 'package:nikan_app/widgets/limited_text.dart';
 import 'package:nikan_app/widgets/product_button.dart';
 import 'package:nikan_app/widgets/tag_button.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/main_controller.dart';
@@ -27,33 +29,80 @@ class MainPage extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
-    var pages = <Widget>[HomePage(), CategoriesPage(), ShopCatPage(), Container()];
-    return Obx(() {
-      return Scaffold(
-        body: pages[controller.selectedPageIndex.value],
-        bottomNavigationBar: AnimatedBottomNavigationBar(
-          icons: [
-            Icons.search_outlined,
-            Icons.category_outlined,
-            Icons.shopping_cart_outlined,
-            Icons.person_outlined
-          ],
+    var pages = <Widget>[
+      HomePage(),
+      CategoriesPage(),
+      ShopCatPage(),
+      Container()
+    ];
 
-          activeColor: Colors.indigo,
-          blurEffect: true,
-          splashRadius: 5.h,
-          splashColor: Colors.indigo,
-          activeIndex: controller.selectedPageIndex.value,
-          gapWidth: 0,
-          onTap: (index) {
-            controller.selectedPageIndex.value = index;
-          },
-          //other params
+    return Scaffold(
+      body: PersistentTabView(
+        context,
+        screens: pages,
+
+        items: [
+          PersistentBottomNavBarItem(
+            activeColorPrimary: Colors.indigo,
+            inactiveColorPrimary: Colors.grey,
+            icon: Icon(
+              Icons.search_outlined,
+            ),
+          ),
+          PersistentBottomNavBarItem(
+            activeColorPrimary: Colors.indigo,
+            inactiveColorPrimary: Colors.grey,
+            icon: Icon(
+              Icons.category_outlined,
+            ),
+          ),
+          PersistentBottomNavBarItem(
+            activeColorPrimary: Colors.indigo,
+            inactiveColorPrimary: Colors.grey,
+            icon: Icon(
+              Icons.shopping_cart_outlined,
+            ),
+          ),
+          PersistentBottomNavBarItem(
+            activeColorPrimary: Colors.indigo,
+            inactiveColorPrimary: Colors.grey,
+            icon: Icon(
+              Icons.person_outlined,
+            ),
+          ),
+        ],
+        onItemSelected: (value) {
+          controller.selectedPageIndex.value = value;
+        },
+        confineInSafeArea: true,
+
+        backgroundColor: Colors.white, // Default is Colors.white.
+        handleAndroidBackButtonPress: true, // Default is true.
+        resizeToAvoidBottomInset:
+            true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+        stateManagement: true, // Default is true.
+        hideNavigationBarWhenKeyboardShows:
+            true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+        decoration: NavBarDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          colorBehindNavBar: Colors.white,
         ),
-      );
-    });
+        popAllScreensOnTapOfSelectedTab: true,
+        popActionScreens: PopActionScreensType.all,
+        itemAnimationProperties: ItemAnimationProperties(
+          // Navigation Bar's items animation properties.
+          duration: Duration(milliseconds: 200),
+          curve: Curves.ease,
+        ),
+        screenTransitionAnimation: ScreenTransitionAnimation(
+          // Screen transition animation on change of selected tab.
+          animateTabTransition: true,
+          curve: Curves.ease,
+          duration: Duration(milliseconds: 200),
+        ),
+        navBarStyle:
+            NavBarStyle.style1, // Choose the nav bar style with this property.
+      ),
+    );
   }
-
- 
-  
 }

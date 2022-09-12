@@ -50,6 +50,7 @@ dependencies:
   flutter_widget_from_html_core: ^0.8.5
   pin_code_fields:
   badges:
+  persistent_bottom_nav_bar_v2:
 
   flutter:
     sdk: flutter

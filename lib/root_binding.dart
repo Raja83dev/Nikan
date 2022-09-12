@@ -23,5 +23,8 @@ class RootBinding extends Bindings {
         fenix: true);
     Get.lazyPut<ShopCartController>(() => ShopCartController(), fenix: true);
     Get.lazyPut<SplashController>(() => SplashController(),fenix: true);
+    Get.lazyPut<ShopCartController>(() => ShopCartController(),fenix: true);
+    
+    
   }
 }

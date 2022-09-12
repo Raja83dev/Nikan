@@ -14,6 +14,7 @@ class ProductDetailController extends GetxController {
     print(id);
     isLoading.value = true;
     productDetail = await ApiService.productdetail(id);
+    productDetail!.gallery!.add(Gallery(imgUrl: productDetail!.image));
     isLoading.value = false;
     print("Product ID : " + productDetail!.id.toString());
   }

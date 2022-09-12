@@ -7,6 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_switch_clipper/flutter_switch_clipper.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/pages/shop_cart_page.dart';
 import 'package:nikan_app/services/api_service.dart';
 import 'package:nikan_app/widgets/comment_widget.dart';
 import 'package:nikan_app/widgets/product_button.dart';
@@ -50,6 +51,16 @@ class ProductDetailPage extends GetView<ProductDetailController> {
               ),
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.to(ShopCatPage());
+              },
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+              ),
+            ),
+          ],
         ),
         body: Stack(
           fit: StackFit.expand,

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:nikan_app/models/cart_product_model.dart';
 import 'package:nikan_app/models/product_detail_model.dart';
 import 'package:nikan_app/models/product_model.dart';
 import 'package:nikan_app/models/products_model.dart';
@@ -214,6 +215,21 @@ class ApiService {
     }
     print(req.statusCode);
     return false;
+  }
+
+  static Future<List<CartProductModel>> cartList() async {
+    var prefs = await SharedPreferences.getInstance();
+    var req = await http.get(
+        Uri.parse(baseUrl + "cart/list?token=${prefs.getString("APP_TOKEN")}"));
+
+    List<CartProductModel> products = <CartProductModel>[];
+    if (req.statusCode == 200) {
+      for (var item in jsonDecode(req.body)) {
+        products.add(CartProductModel.fromJson(item));
+      }
+    }
+    print("Cart Length : ${products.length}");
+    return products;
   }
 }
 
