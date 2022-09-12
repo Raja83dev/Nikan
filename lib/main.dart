@@ -33,7 +33,7 @@ class MainApp extends StatelessWidget {
        
         translations: Messages(),
         locale: Locale('fa', 'IR'),
-       home: LoginPage(),
+       home: SplashScreen(),
       );
     }
     ); 

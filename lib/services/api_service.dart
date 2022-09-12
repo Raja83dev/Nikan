@@ -179,9 +179,40 @@ class ApiService {
   static Future<bool> loginWithToken() async {
     var prefs = await SharedPreferences.getInstance();
     print("TOKEN : ${prefs.getString("APP_TOKEN")}");
-    var req = await http.post(
+    var req = await http.get(
         Uri.parse(baseUrl + "token/check/${prefs.getString("APP_TOKEN")}"));
+
     return req.statusCode == 200;
+  }
+
+  static Future<bool> addToCart(int id) async {
+    var prefs = await SharedPreferences.getInstance();
+
+    var req = await http.get(Uri.parse(
+        baseUrl + "add/to/cart/$id?token=${prefs.getString("APP_TOKEN")}"));
+
+    if (req.statusCode == 200) {
+      var data = jsonDecode(req.body);
+      showSnake(data['message'], "");
+      return true;
+    }
+    return false;
+  }
+
+
+
+  static Future<bool> removeFromCart(int id) async {
+    var prefs = await SharedPreferences.getInstance();
+
+    var req = await http.get(Uri.parse(
+        baseUrl + "remove/cart/$id?token=${prefs.getString("APP_TOKEN")}"));
+
+    if (req.statusCode == 200) {
+      var data = jsonDecode(req.body);
+      showSnake(data['message'], "");
+      return true;
+    }
+    return false;
   }
 }
 

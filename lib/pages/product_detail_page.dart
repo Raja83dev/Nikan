@@ -168,7 +168,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AutoSizeText(
-              "دیدگاه کاربران ",
+              "comments".tr,
               style: PersianFonts.Yekan.copyWith(
                 height: 1.5,
                 fontSize: 15.sp,
@@ -184,7 +184,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                           appBar: AppBar(
                             backgroundColor: Colors.indigo,
                             title: Text(
-                              "دیدگاه کاربران",
+                              "comments".tr,
                               style: PersianFonts.Yekan.copyWith(
                                 height: 1.5,
                                 fontSize: 13.sp,
@@ -212,7 +212,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                     },
                     child: AutoSizeText(
                       controller.productDetail!.commentCount!.toString() +
-                          " دیدگاه",
+                          "comment".tr,
                       style: PersianFonts.Yekan.copyWith(
                         height: 1.5,
                         fontSize: 13.sp,
@@ -229,7 +229,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
         ),
         controller.productDetail!.commentCount! == 0
             ? AutoSizeText(
-                "دیدگاهی برای این محصول ثبت نشده",
+                "no_comment_for_product".tr,
                 style: PersianFonts.Yekan.copyWith(
                   height: 1.5,
                   fontSize: 13.sp,
@@ -315,7 +315,9 @@ class ProductDetailPage extends GetView<ProductDetailController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AutoSizeText(
-              controller.productDetail!.stock!.toString() + " عدد در انبار",
+              controller.productDetail!.stock!.toString() +
+                  " " +
+                  "numbers_in_store".tr,
               maxLines: 1,
               style: PersianFonts.Yekan.copyWith(
                 height: 1.5,
@@ -330,19 +332,41 @@ class ProductDetailPage extends GetView<ProductDetailController> {
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.indigo)),
-                    onPressed: () {},
-                    child: Text(
-                      "افزودن به سبد خرید",
-                      style: PersianFonts.Yekan.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
+                  child: Builder(builder: (context) {
+                    if (controller.productDetail!.inCart == "200") {
+                      return ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red),
+                          elevation: MaterialStateProperty.all(0),
+                          
+                        
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          "remove_from_cart".tr,
+                          style: PersianFonts.Yekan.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      );
+                    }
+
+                    return ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.indigo)),
+                      onPressed: () {},
+                      child: Text(
+                        "add_to_cart".tr,
+                        style: PersianFonts.Yekan.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                 ),
                 SizedBox(
                   width: 5.w,
@@ -351,7 +375,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     AutoSizeText(
-                      controller.productDetail!.price!.seRagham() + "  تومان",
+                      controller.productDetail!.price!.seRagham() + "toman".tr,
                       maxLines: 1,
                       style: PersianFonts.Yekan.copyWith(
                         height: 1.5,
@@ -394,7 +418,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AutoSizeText(
-            "انتخاب سایز",
+            "select_size".tr,
             maxLines: 4,
             style: PersianFonts.Yekan.copyWith(
               height: 1.5,
@@ -467,7 +491,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AutoSizeText(
-            "ویژگی ها",
+            "attributes".tr,
             maxLines: 4,
             style: PersianFonts.Yekan.copyWith(
               height: 1.5,

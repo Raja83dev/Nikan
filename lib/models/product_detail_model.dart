@@ -1,4 +1,5 @@
 class ProductDetail {
+  String? inCart;
   String? title;
   int? commentCount;
   String? avrage;
@@ -34,9 +35,12 @@ class ProductDetail {
       this.size,
       this.comment,
       this.details,
-      this.related});
+      this.related,
+      this.inCart
+      });
 
   ProductDetail.fromJson(dynamic json) {
+    inCart = json['cart'].toString();
     title = json['title'];
     commentCount = json['comment_count'];
     avrage = json['avrage'];

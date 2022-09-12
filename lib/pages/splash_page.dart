@@ -34,9 +34,10 @@ class SplashScreen extends GetView<SplashController> {
                 "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با ",
                 textAlign: TextAlign.center,
                 style: PersianFonts.Yekan.copyWith(
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.indigo[100]),
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.indigo[100],
+                ),
               ),
             ],
           ),
@@ -49,6 +50,3 @@ class SplashScreen extends GetView<SplashController> {
     );
   }
 }
-
-
-                

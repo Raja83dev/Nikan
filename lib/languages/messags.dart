@@ -37,7 +37,15 @@ class Messages extends Translations {
           "related_products" : "محصولات مرتبط",
           "no_image" : "بدون تصویر",
           "toman":"تومان",
-          "nikan" : "اپلیکیشن نیکان"
+          "nikan" : "اپلیکیشن نیکان",
+          "attributes" : "ویژگی ها",
+          "select_size" : "انتخاب سایز",
+          "numbers_in_store":"عدد در انبار",
+          "add_to_cart":"افزودن به سبد خرید",
+          "comments" : "دیدگاه کاربران ",
+          "comment" : "دیدگاه",
+          "no_comment_for_product" : "دیدگاهی برای این محصول ثبت نشده",
+          "remove_from_cart" : "حذف از سبد خرید"
         },
       };
 }
