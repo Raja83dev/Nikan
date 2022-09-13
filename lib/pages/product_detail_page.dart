@@ -26,7 +26,9 @@ class ProductDetailPage extends GetView<ProductDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getDetail(Get.arguments);
+    
+    controller.getDetail(int.parse(Get.arguments));
+
     return Obx(() {
       if (controller.isLoading.value) {
         return Scaffold(

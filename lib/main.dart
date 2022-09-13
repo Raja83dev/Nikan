@@ -12,9 +12,8 @@ import 'package:nikan_app/services/api_service.dart';
 
 import 'package:sizer/sizer.dart';
 
-void main() async {
 
-   
+void main() async {
   runApp(MainApp());
 }
 

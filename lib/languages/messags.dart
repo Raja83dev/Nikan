@@ -47,6 +47,7 @@ class Messages extends Translations {
           "no_comment_for_product": "دیدگاهی برای این محصول ثبت نشده",
           "remove_from_cart": "حذف از سبد خرید",
           "cart": "سبد خرید",
+          "completing_shopping_cart":"تکمیل سبد خرید"
         },
       };
 }
