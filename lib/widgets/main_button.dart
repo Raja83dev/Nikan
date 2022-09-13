@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persian_fonts/persian_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 class MainButton extends StatelessWidget {
@@ -19,10 +20,11 @@ class MainButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 14.sp),
+            style: PersianFonts.Yekan.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+            ),
           ),
         ),
       ),
