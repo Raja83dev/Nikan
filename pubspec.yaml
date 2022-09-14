@@ -51,6 +51,7 @@ dependencies:
   pin_code_fields:
   badges:
   persistent_bottom_nav_bar_v2:
+  simple_animations: 
 
   flutter:
     sdk: flutter

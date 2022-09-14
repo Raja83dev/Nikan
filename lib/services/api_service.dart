@@ -9,6 +9,7 @@ import 'package:nikan_app/models/product_detail_model.dart';
 import 'package:nikan_app/models/product_model.dart';
 import 'package:nikan_app/models/products_model.dart';
 import 'package:nikan_app/models/slider_image_model.dart';
+import 'package:nikan_app/models/sub_category_model.dart';
 import 'package:nikan_app/models/tag_model.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -230,6 +231,18 @@ class ApiService {
     }
     print("Cart Length : ${products.length}");
     return products;
+  }
+
+  static Future<SubCategoryModel?> getSubCategory(int id) async {
+    var req = await http.get(Uri.parse(baseUrl + "subcategory/list/$id"));
+
+    if (req.statusCode == 200) {
+      var detail = SubCategoryModel.fromJson(jsonDecode(req.body));
+      print("Status OK");
+      return (detail);
+    } else {
+      return null;
+    }
   }
 }
 
