@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
 import 'package:nikan_app/models/product_detail_model.dart';
@@ -9,9 +10,9 @@ class ProductDetailController extends GetxController {
   var isSending = false.obs;
 
   var selectedSizeIndex = 0.obs;
+var panelIsOpen=false.obs;
 
   void getDetail(int id) async {
-   
     isLoading.value = true;
     productDetail = await ApiService.productdetail(id);
     productDetail!.gallery!.add(Gallery(imgUrl: productDetail!.image));

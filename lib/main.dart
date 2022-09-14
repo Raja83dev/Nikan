@@ -29,7 +29,6 @@ class MainApp extends StatelessWidget {
         themeMode: ThemeMode.light,
         initialBinding: RootBinding(),
         
-       
         translations: Messages(),
         locale: Locale('fa', 'IR'),
        home: SplashScreen(),

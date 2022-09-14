@@ -52,6 +52,8 @@ dependencies:
   badges:
   persistent_bottom_nav_bar_v2:
   simple_animations: 
+  sliding_up_panel:
+  auto_animated:
 
   flutter:
     sdk: flutter
