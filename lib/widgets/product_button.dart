@@ -23,7 +23,7 @@ class ProductButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ProductDetailPage(), arguments: id);
+        Get.to(ProductDetailPage(), arguments: id.toString());
  
       },
       child: Padding(
