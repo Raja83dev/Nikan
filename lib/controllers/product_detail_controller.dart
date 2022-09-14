@@ -11,7 +11,7 @@ class ProductDetailController extends GetxController {
   var selectedSizeIndex = 0.obs;
 
   void getDetail(int id) async {
-    print(id);
+   
     isLoading.value = true;
     productDetail = await ApiService.productdetail(id);
     productDetail!.gallery!.add(Gallery(imgUrl: productDetail!.image));
