@@ -1,73 +1,99 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/pages/sub_categories_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:nikan_app/controllers/categories_controller.dart';
 import 'package:sizer/sizer.dart';
+import 'package:auto_animated/auto_animated.dart';
 
 class CategoriesPage extends GetView<CategoriesController> {
-  const CategoriesPage({Key? key}) : super(key: key);
+  CategoriesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 100.w,
-      child: Obx(() {
-        return Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 6.h,
-                ),
-                Text(
-                  "all_tags".tr,
-                  style: PersianFonts.Vazir.copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black54,
-                  ),
-                ),
-                Flexible(
-                  child: ListView(
-                    children: List.generate(controller.tagList.length, (index) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 1.h / 5),
-                        child: Material(
-                          elevation: 1,
-                          child: ListTile(
-                            onTap: () {
-                              controller
-                                  .tagClicked(controller.tagList[index].id);
-                            },
-                            trailing: Icon(Icons.chevron_right_outlined),
-                            title: Text(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigo,
+        centerTitle: true,
+        title: AutoSizeText(
+          "tags".tr,
+          maxLines: 1,
+          style: PersianFonts.Yekan.copyWith(
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: Obx(() {
+        if (controller.isloadingTags.value == true) {
+          return Center(
+            child: SpinKitFoldingCube(
+              size: 10.w,
+              color: Colors.indigo,
+            ),
+          );
+        }
+        return LiveGrid(
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 5.h),
+          delay: Duration(milliseconds: 100),
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemCount: controller.tagList.length,
+          itemBuilder:
+              (BuildContext context, int index, Animation<double> animation) {
+            return FadeTransition(
+              opacity: Tween<double>(
+                begin: 0,
+                end: 1,
+              ).animate(animation),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(5.w),
+                onTap: () {
+                  controller.tagClicked(index);
+                  Get.to(SubCategoriesPage());
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(3.w),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(5.w),
+                    elevation: 3,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.w),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: controller.tagList[index].image,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Center(
+                            child: AutoSizeText(
                               controller.tagList[index].name,
-                              style: PersianFonts.Vazir.copyWith(
+                              maxLines: 1,
+                              style: PersianFonts.Yekan.copyWith(
                                 fontSize: 10.sp,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black54,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.black,
                               ),
                             ),
                           ),
                         ),
-                      );
-                    }),
+                      ],
+                    ),
                   ),
-                )
-              ],
-            ),
-            controller.isloadingSubTags.value
-                ? Container(
-                    color: Colors.black.withOpacity(0.5),
-                    child: SpinKitChasingDots(color: Colors.white),
-                    width: 100.w,
-                    height: 100.h,
-                    alignment: Alignment.center,
-                  )
-                : SizedBox(),
-          ],
+                ),
+              ),
+            );
+          },
         );
       }),
     );
