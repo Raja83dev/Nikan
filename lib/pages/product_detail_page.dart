@@ -358,6 +358,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
 return SpinKitSpinningLines(color: Colors.indigo);
                 }
               },
+              
             ),
             Row(
               children: [
