@@ -29,6 +29,18 @@ class HomePage extends GetView<HomeController> {
           centerTitle: true,
           pinned: true,
           leadingWidth: 20.w,
+          actions: [
+            ShaderMask(
+blendMode: BlendMode.clear,
+                shaderCallback: (Rect bounds) {
+                  return LinearGradient(colors: [Colors.white,Colors.white])
+                      .createShader(bounds);
+                },
+                child: Image.asset(
+                  "assets/icons/nikan_logo.png",
+                  fit: BoxFit.fill,
+                ),),
+          ],
           leading: InkWell(
             onTap: () {},
             child: Center(
@@ -139,40 +151,41 @@ class HomePage extends GetView<HomeController> {
                         ),
                         SizedBox(
                           height: 30.h,
-                          child: 
-                          controller.productList[i].product!.length==0 ? Center(child: Text(
-                                "not_product_in_brand".tr,
-                                style: PersianFonts.Yekan.copyWith(
-                                    fontSize: 17.sp,
-                                    color: Colors.black45,
-                                    fontWeight: FontWeight.w800),
-                              ),)  :
-                          
-                          LiveList(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index, animation) {
-                              return SlideTransition(
-                                position: Tween<Offset>(
-                                  begin: Offset(0, -1),
-                                  end: Offset(0, 0),
-                                ).animate(animation),
-                                child: ProductButton(
-                                  id: controller
-                                      .productList[i].product![index].id,
-                                  name: controller
-                                      .productList[i].product![index].title!,
-                                  image: controller
-                                      .productList[i].product![index].image!,
-                                  price: controller
-                                      .productList[i].product![index].price!
-                                      .seRagham()
-                                      .toPersianDigit(),
+                          child: controller.productList[i].product!.length == 0
+                              ? Center(
+                                  child: Text(
+                                    "not_product_in_brand".tr,
+                                    style: PersianFonts.Yekan.copyWith(
+                                        fontSize: 17.sp,
+                                        color: Colors.black45,
+                                        fontWeight: FontWeight.w800),
+                                  ),
+                                )
+                              : LiveList(
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index, animation) {
+                                    return SlideTransition(
+                                      position: Tween<Offset>(
+                                        begin: Offset(0, -1),
+                                        end: Offset(0, 0),
+                                      ).animate(animation),
+                                      child: ProductButton(
+                                        id: controller
+                                            .productList[i].product![index].id,
+                                        name: controller.productList[i]
+                                            .product![index].title!,
+                                        image: controller.productList[i]
+                                            .product![index].image!,
+                                        price: controller.productList[i]
+                                            .product![index].price!
+                                            .seRagham()
+                                            .toPersianDigit(),
+                                      ),
+                                    );
+                                  },
+                                  itemCount:
+                                      controller.productList[i].product!.length,
                                 ),
-                              );
-                            },
-                            itemCount:
-                                controller.productList[i].product!.length,
-                          ),
                         ),
                       ],
                     ),
