@@ -1,9 +1,13 @@
+import 'package:auto_animated/auto_animated.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/controllers/main_controller.dart';
 import 'package:nikan_app/pages/search_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
@@ -18,154 +22,90 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       scrollDirection: Axis.vertical,
-
       slivers: [
-           
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 20.h,
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            width: 20.w,
-            height: 20.w,
-            child: Image.asset(
-              "assets/icons/nikan_logo.png",
-              fit: BoxFit.scaleDown,
-            ),
-          ),
-        ),
         SliverAppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.indigo,
           elevation: 3,
           centerTitle: true,
           pinned: true,
-          title: Material(
-            elevation: 3,
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(4.w),
-            child: Container(
-              //margin: EdgeInsets.symmetric(horizontal: 5.w),
-              width: 90.w,
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(4.w),
-              ),
-              child: TextField(
-                readOnly: true,
-                onTap: () {
-                  Get.to(() => SearchPage());
-                },
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search_outlined,
-                    color: Colors.indigo,
-                  ),
-                  suffixIcon: Icon(
-                    Icons.check_outlined,
-                    color: Colors.indigo,
-                  ),
-                  border: InputBorder.none,
-                  hintText: "search".tr,
-                  hintStyle: PersianFonts.Yekan.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black45,
-                  ),
+          leadingWidth: 20.w,
+          leading: InkWell(
+            onTap: () {},
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(right: 3.w),
+                child: Text(
+                  "cart".tr,
+                  style: PersianFonts.Yekan.copyWith(
+                      fontSize: 11.sp, fontWeight: FontWeight.w800),
                 ),
               ),
             ),
           ),
+          title: Text(
+            "nikan".tr,
+            style: PersianFonts.Yekan.copyWith(
+                fontSize: 15.sp, fontWeight: FontWeight.w800),
+          ),
         ),
+
+        SliverToBoxAdapter(
+          child: Obx(() {
+            if (controller.isloadingTags.value) {
+              return Padding(
+                padding: EdgeInsets.only(top: 3.h),
+                child: SpinKitPouringHourGlass(
+                  color: Colors.indigo,
+                ),
+              );
+            }
+
+            return SizedBox(
+              height: 10.h,
+              child: LiveList(
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.tagList.length,
+                itemBuilder: (BuildContext context, int index,
+                    Animation<double> animation) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: Offset(-1, 0),
+                      end: Offset(0, 0),
+                    ).animate(animation),
+                    child: index == 0
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 3.w),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.search),
+                            ),
+                          )
+                        : CupertinoButton(
+                            onPressed: () {},
+                            child: AutoSizeText(
+                              controller.tagList[index].name,
+                              maxLines: 1,
+                              style: PersianFonts.Yekan.copyWith(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                  );
+                },
+              ),
+            );
+          }),
+        ),
+
         SliverToBoxAdapter(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 4.h,
-              ),
-              Obx(() {
-                if (controller.isloadingSlider.value) {
-                  return SizedBox(
-                    width: 90.w,
-                    height: 40.h,
-                  );
-                }
-                return CarouselSlider(
-                    items: List.generate(controller.sliderList.length, (index) {
-                      return Container(
-                        width: 90.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.w),
-                          image: DecorationImage(
-                            fit: BoxFit.fitHeight,
-                            image: CachedNetworkImageProvider(
-                              controller.sliderList[index].image,
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-                    options: CarouselOptions(
-                      height: 40.h,
-                      aspectRatio: 16 / 9,
-                      viewportFraction: 1,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 6),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      scrollDirection: Axis.horizontal,
-                    ));
-              }),
-
-              SizedBox(
                 height: 2.h,
               ),
-              // Obx(() {
-              //   if(controller.isloadingTags.value){
-              //     return SizedBox(height: 30.h,width:90.w);
-              //   }
-              //   return SingleChildScrollView(
-              //     scrollDirection: Axis.horizontal,
-              //     child: Row(
-              //       children: List.generate(controller.tagList.length, (index) {
-              //         return Padding(
-              //           padding: EdgeInsets.symmetric(horizontal: 1.w / 2),
-              //           child: SwitchCipper(
-              //             child: Container(
-              //               color: Colors.white,
-              //               alignment: Alignment.center,
-              //               padding: EdgeInsets.symmetric(
-              //                   vertical: 1.h, horizontal: 2.h),
-              //               child: LimitedText(
-              //                 text: controller.tagList[index].name,
-              //                 color: Colors.indigo.withOpacity(0.8),
-              //                 fontSize: 10.sp,
-              //               ),
-              //             ),
-              //             background: Container(
-              //               alignment: Alignment.center,
-              //               padding: EdgeInsets.symmetric(
-              //                   vertical: 1.h, horizontal: 2.h),
-              //               decoration: BoxDecoration(
-              //                 color: Colors.indigo.withOpacity(0.8),
-              //                 borderRadius: BorderRadius.circular(5.w),
-              //               ),
-              //               child: LimitedText(
-              //                   text: controller.tagList[index].name,
-              //                   fontSize: 10.sp),
-              //             ),
-              //           ),
-              //         );
-              //       }),
-              //     ),
-              //   );
-              // }),
               SizedBox(
                 height: 2.h,
               ),

@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:nikan_app/pages/search_page.dart';
 import 'package:nikan_app/pages/shop_cart_page.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +31,7 @@ class MainPage extends GetView<MainController> {
   Widget build(BuildContext context) {
     var pages = <Widget>[
       HomePage(),
+      SearchPage(),
       CategoriesPage(),
    
       Container()
@@ -42,6 +44,13 @@ class MainPage extends GetView<MainController> {
 
         items: [
           PersistentBottomNavBarItem(
+            activeColorPrimary: Colors.indigo,
+            inactiveColorPrimary: Colors.grey,
+            icon: Icon(
+              Icons.home,
+            ),
+          ),
+            PersistentBottomNavBarItem(
             activeColorPrimary: Colors.indigo,
             inactiveColorPrimary: Colors.grey,
             icon: Icon(

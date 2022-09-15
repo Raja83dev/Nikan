@@ -13,11 +13,11 @@ import 'package:sizer/sizer.dart';
 class SearchPage extends GetView<SearchController> {
   SearchPage({Key? key}) : super(key: key);
 
-  FocusNode seachNode = FocusNode();
+  
 
   @override
   Widget build(BuildContext context) {
-    seachNode.requestFocus();
+   
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -35,7 +35,7 @@ class SearchPage extends GetView<SearchController> {
                 ),
                 child: TextField(
                   onChanged: controller.getSearchedProducts,
-                  focusNode: seachNode,
+              
                   onTap: () {},
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
