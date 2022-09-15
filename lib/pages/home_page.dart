@@ -9,6 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/main_controller.dart';
 import 'package:nikan_app/pages/search_page.dart';
+import 'package:nikan_app/pages/shop_cart_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:nikan_app/controllers/home_controller.dart';
@@ -31,24 +32,27 @@ class HomePage extends GetView<HomeController> {
           leadingWidth: 20.w,
           actions: [
             ShaderMask(
-blendMode: BlendMode.clear,
-                shaderCallback: (Rect bounds) {
-                  return LinearGradient(colors: [Colors.white,Colors.white])
-                      .createShader(bounds);
-                },
-                child: Image.asset(
-                  "assets/icons/nikan_logo.png",
-                  fit: BoxFit.fill,
-                ),),
+              blendMode: BlendMode.clear,
+              shaderCallback: (Rect bounds) {
+                return LinearGradient(colors: [Colors.white, Colors.white])
+                    .createShader(bounds);
+              },
+              child: Image.asset(
+                "assets/icons/nikan_logo.png",
+                fit: BoxFit.fill,
+              ),
+            ),
           ],
           leading: InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.to(ShopCartPage());
+            },
             child: Center(
               child: Padding(
                 padding: EdgeInsets.only(right: 3.w),
                 child: Text(
                   "cart".tr,
-                  style: PersianFonts.Yekan.copyWith(
+                  style: PersianFonts.Vazir.copyWith(
                       fontSize: 11.sp, fontWeight: FontWeight.w800),
                 ),
               ),
@@ -56,7 +60,7 @@ blendMode: BlendMode.clear,
           ),
           title: Text(
             "nikan".tr,
-            style: PersianFonts.Yekan.copyWith(
+            style: PersianFonts.Vazir.copyWith(
                 fontSize: 17.sp, fontWeight: FontWeight.w800),
           ),
         ),
@@ -87,7 +91,9 @@ blendMode: BlendMode.clear,
                         ? Padding(
                             padding: EdgeInsets.symmetric(horizontal: 3.w),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                            Get.bottomSheet(SearchPage());
+                              },
                               icon: Icon(Icons.search),
                             ),
                           )
@@ -96,7 +102,7 @@ blendMode: BlendMode.clear,
                             child: AutoSizeText(
                               controller.tagList[index].name,
                               maxLines: 1,
-                              style: PersianFonts.Yekan.copyWith(
+                              style: PersianFonts.Vazir.copyWith(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black54,
@@ -130,7 +136,7 @@ blendMode: BlendMode.clear,
                           children: [
                             Text(
                               controller.productList[i].name!,
-                              style: PersianFonts.Yekan.copyWith(
+                              style: PersianFonts.Vazir.copyWith(
                                   fontSize: 17.sp,
                                   fontWeight: FontWeight.w800,
                                   color: Colors.black54),
@@ -138,7 +144,7 @@ blendMode: BlendMode.clear,
                             CupertinoButton(
                               child: Text(
                                 "show_all".tr,
-                                style: PersianFonts.Yekan.copyWith(
+                                style: PersianFonts.Vazir.copyWith(
                                     fontSize: 11.sp,
                                     fontWeight: FontWeight.w800),
                               ),
@@ -155,7 +161,7 @@ blendMode: BlendMode.clear,
                               ? Center(
                                   child: Text(
                                     "not_product_in_brand".tr,
-                                    style: PersianFonts.Yekan.copyWith(
+                                    style: PersianFonts.Vazir.copyWith(
                                         fontSize: 17.sp,
                                         color: Colors.black45,
                                         fontWeight: FontWeight.w800),
