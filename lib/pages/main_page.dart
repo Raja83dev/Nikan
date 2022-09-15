@@ -31,7 +31,7 @@ class MainPage extends GetView<MainController> {
     var pages = <Widget>[
       HomePage(),
       CategoriesPage(),
-      ShopCatPage(),
+   
       Container()
     ];
 
@@ -55,13 +55,7 @@ class MainPage extends GetView<MainController> {
               Icons.category_outlined,
             ),
           ),
-          PersistentBottomNavBarItem(
-            activeColorPrimary: Colors.indigo,
-            inactiveColorPrimary: Colors.grey,
-            icon: Icon(
-              Icons.shopping_cart_outlined,
-            ),
-          ),
+        
           PersistentBottomNavBarItem(
             activeColorPrimary: Colors.indigo,
             inactiveColorPrimary: Colors.grey,

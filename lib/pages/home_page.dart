@@ -18,7 +18,9 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       scrollDirection: Axis.vertical,
+
       slivers: [
+           
         SliverToBoxAdapter(
           child: SizedBox(
             height: 20.h,
@@ -53,7 +55,7 @@ class HomePage extends GetView<HomeController> {
               child: TextField(
                 readOnly: true,
                 onTap: () {
-                  Get.to(()=>SearchPage());
+                  Get.to(() => SearchPage());
                 },
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(

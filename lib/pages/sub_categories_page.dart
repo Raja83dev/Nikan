@@ -52,7 +52,7 @@ class SubCategoriesPage extends GetView<CategoriesController> {
               ).animate(animation),
               child: ListTile(
                 onTap: (){},
-                
+                leading: Icon(Icons.arrow_back_ios_new_outlined),
                 title: AutoSizeText(
                   controller.subTag.items![index].title!,
                   maxLines: 1,

@@ -12,7 +12,6 @@ import 'package:nikan_app/services/api_service.dart';
 
 import 'package:sizer/sizer.dart';
 
-
 void main() async {
   runApp(MainApp());
 }
@@ -25,15 +24,12 @@ class MainApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-
         themeMode: ThemeMode.light,
         initialBinding: RootBinding(),
-        
         translations: Messages(),
         locale: Locale('fa', 'IR'),
-       home: SplashScreen(),
+        home: SplashScreen(),
       );
-    }
-    ); 
+    });
   }
 }
