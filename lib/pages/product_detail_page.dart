@@ -56,6 +56,9 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   onPanelClosed: () {
                     controller.panelIsOpen.value = false;
                   },
+                  onPanelSlide: (position) {
+                    controller.update(["size"]);
+                  },
                   panelBuilder: (sc) {
                     return SingleChildScrollView(
                       controller: sc,
@@ -294,103 +297,109 @@ class ProductDetailPage extends GetView<ProductDetailController> {
   }
 
   Widget _buttonWidget() {
-    return AnimatedPositioned(
-      left: 5.w,
-      right: 5.w,
-      bottom: controller.panelIsOpen.value ? 2.h : -25.h,
-      duration: Duration(seconds: 1),
-      curve: Curves.easeIn,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 2.w),
-        width: 100.w,
-        height: 10.h,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.w),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5), //shadow color
-              spreadRadius: 2, // spread radius
-              blurRadius: 7, // shadow blur radius
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Builder(
-              builder: (context) {
-                if (controller.isSending.value==false) {
-                  if(controller.productDetail!.inCart=="200"){
-                     return CupertinoButton(
-                    onPressed: () {
-                      controller.removeFromCart();
-                    },
-                    child: Center(
-                      child: Text(
-                        "remove_from_cart".tr,
-                        style: PersianFonts.Yekan.copyWith(
-                          color: Colors.red[800],
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13.sp,
-                        ),
-                      ),
-                    ),
-                  );
-                  }
-                  return CupertinoButton(
-                    onPressed: () {
-                      controller.addToCart();
-                    },
-                    child: Center(
-                      child: Text(
-                        "add_to_cart".tr,
-                        style: PersianFonts.Yekan.copyWith(
-                          color: Colors.black45,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13.sp,
-                        ),
-                      ),
-                    ),
-                  );
-                }else{
-return SpinKitSpinningLines(color: Colors.indigo);
-                }
-              },
-              
-            ),
-            Row(
-              children: [
-                AutoSizeText(
-                  controller.productDetail!.price!.seRagham() + "toman".tr,
-                  maxLines: 1,
-                  style: PersianFonts.Yekan.copyWith(
-                    height: 1.5,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.green[700],
-                  ),
-                ),
-                SizedBox(
-                  width: 1.h,
-                ),
-                AutoSizeText(
-                  controller.productDetail!.delPrice!.seRagham(),
-                  maxLines: 1,
-                  style: PersianFonts.Yekan.copyWith(
-                    decoration: TextDecoration.lineThrough,
-                    height: 1.5,
-                    fontSize: 7.sp,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.red[700],
-                  ),
+    return GetBuilder<ProductDetailController>(
+      assignId: true,
+      id: "size",
+      builder: (context) {
+        return AnimatedPositioned(
+          left: 5.w,
+          right: 5.w,
+          bottom: controller.panelIsOpen.value ? 2.h : -25.h,
+          duration: Duration(seconds: 1),
+          curve: Curves.easeIn,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 2.w),
+            width: 100.w,
+            height: 10.h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.w),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5), //shadow color
+                  spreadRadius: 2, // spread radius
+                  blurRadius: 7, // shadow blur radius
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Builder(
+                  builder: (context) {
+                    if (controller.isSending.value == false) {
+                      if (controller.productDetail!.inCart == "200") {
+                        return CupertinoButton(
+                          onPressed: () {
+                            controller.removeFromCart();
+                            
+                          },
+                          child: Center(
+                            child: Text(
+                              "remove_from_cart".tr,
+                              style: PersianFonts.Yekan.copyWith(
+                                color: Colors.red[800],
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13.sp,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      return CupertinoButton(
+                        onPressed: () {
+                          controller.addToCart();
+                        },
+                        child: Center(
+                          child: Text(
+                            "add_to_cart".tr,
+                            style: PersianFonts.Yekan.copyWith(
+                              color: Colors.black45,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13.sp,
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return SpinKitSpinningLines(color: Colors.indigo);
+                    }
+                  },
+                ),
+                Row(
+                  children: [
+                    AutoSizeText(
+                      controller.productDetail!.price!.seRagham() + "toman".tr,
+                      maxLines: 1,
+                      style: PersianFonts.Yekan.copyWith(
+                        height: 1.5,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.green[700],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 1.h,
+                    ),
+                    AutoSizeText(
+                      controller.productDetail!.delPrice!.seRagham(),
+                      maxLines: 1,
+                      style: PersianFonts.Yekan.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                        height: 1.5,
+                        fontSize: 7.sp,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.red[700],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
     );
   }
 
@@ -398,73 +407,79 @@ return SpinKitSpinningLines(color: Colors.indigo);
     if (controller.productDetail!.size!.length == 0) {
       return SizedBox();
     }
-    return SizedBox(
-      width: 90.w,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AutoSizeText(
-            "select_size".tr,
-            maxLines: 4,
-            style: PersianFonts.Yekan.copyWith(
-              height: 1.5,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w800,
-              color: Colors.black54,
-            ),
-          ),
-          SizedBox(
-            height: 3.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:
-                List.generate(controller.productDetail!.size!.length, (index) {
-              return InkWell(
-                onTap: () {
-                  controller.selectedSizeIndex.value = index;
-                },
-                child: SwitchCipper(
-                  isSelect: controller.selectedSizeIndex.value == index,
-                  initSelect: controller.selectedSizeIndex.value == index,
-                  background: Container(
-                    color: Colors.white,
-                    alignment: Alignment.center,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.h),
-                    child: AutoSizeText(
-                      controller.productDetail!.size![index].value!,
-                      style: PersianFonts.Yekan.copyWith(
-                        fontSize: 13.sp,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.h),
-                    decoration: BoxDecoration(
-                      color: Colors.indigo.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(5.w),
-                    ),
-                    child: AutoSizeText(
-                      controller.productDetail!.size![index].value!,
-                      style: PersianFonts.Yekan.copyWith(
-                        fontSize: 13.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+    return GetBuilder<ProductDetailController>(
+        id: "size",
+        assignId: true,
+        builder: (context) {
+          return SizedBox(
+            width: 90.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  "select_size".tr,
+                  maxLines: 4,
+                  style: PersianFonts.Yekan.copyWith(
+                    height: 1.5,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.black54,
                   ),
                 ),
-              );
-            }),
-          ),
-        ],
-      ),
-    );
+                SizedBox(
+                  height: 3.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(
+                      controller.productDetail!.size!.length, (index) {
+                    return InkWell(
+                      onTap: () {
+                        controller.selectedSizeIndex.value = index;
+                        controller.changeSize(index);
+                      },
+                      child: SwitchCipper(
+                        isSelect: controller.selectedSizeIndex.value == index,
+                        initSelect: controller.selectedSizeIndex.value == index,
+                        background: Container(
+                          color: Colors.white,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 1.h, horizontal: 2.h),
+                          child: AutoSizeText(
+                            controller.productDetail!.size![index].value!,
+                            style: PersianFonts.Yekan.copyWith(
+                              fontSize: 13.sp,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 1.h, horizontal: 2.h),
+                          decoration: BoxDecoration(
+                            color: Colors.indigo.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(5.w),
+                          ),
+                          child: AutoSizeText(
+                            controller.productDetail!.size![index].value!,
+                            style: PersianFonts.Yekan.copyWith(
+                              fontSize: 13.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   Widget _details() {

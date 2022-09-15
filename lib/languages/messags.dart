@@ -37,7 +37,7 @@ class Messages extends Translations {
           "related_products": "محصولات مرتبط",
           "no_image": "بدون تصویر",
           "toman": "تومان",
-          "nikan": "اپلیکیشن نیکان",
+          "nikan": "نیکان",
           "attributes": "ویژگی ها",
           "select_size": "انتخاب سایز",
           "numbers_in_store": "عدد در انبار",
@@ -49,6 +49,7 @@ class Messages extends Translations {
           "cart": "سبد خرید",
           "completing_shopping_cart":"تکمیل سبد خرید",
           "show_detail":"نمایش جزییات",
+          "not_product_in_brand" : "این برند هیچ محصولی ندارد"
         },
       };
 }

@@ -22,6 +22,7 @@ var panelIsOpen=false.obs;
 
   void addToCart() async {
     isSending.value = true;
+      update(["size"]);
     var res = await ApiService.addToCart(productDetail!.id!);
     if (res == true) {
       productDetail!.inCart = "200";
@@ -29,10 +30,17 @@ var panelIsOpen=false.obs;
     }
 
     isSending.value = false;
+        update(["size"]);
   }
+
+  void changeSize(int index){
+    update(["size"]);
+  }
+
 
   void removeFromCart() async {
     isSending.value = true;
+      update(["size"]);
     var res = await ApiService.removeFromCart(productDetail!.id!);
     if (res == true) {
       productDetail!.inCart = "100";
@@ -40,5 +48,6 @@ var panelIsOpen=false.obs;
     }
 
     isSending.value = false;
+      update(["size"]);
   }
 }
