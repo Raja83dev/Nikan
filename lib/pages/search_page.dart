@@ -19,6 +19,7 @@ class SearchPage extends GetView<SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       resizeToAvoidBottomInset : false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -73,7 +74,7 @@ class SearchPage extends GetView<SearchController> {
                 ),
               );
             }
-
+      
             return SizedBox(
               height: 10.h,
               child: LiveList(
@@ -103,7 +104,6 @@ class SearchPage extends GetView<SearchController> {
               ),
             );
           }),
-      
           Expanded(
             child: Obx(() {
               if (controller.isloading.value) {
@@ -113,8 +113,21 @@ class SearchPage extends GetView<SearchController> {
                   ),
                 );
               }
+      
+              if (controller.products.length == 0) {
+                return Center(
+                  child: Text(
+                    "not_founded_product".tr,
+                    style: PersianFonts.Vazir.copyWith(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black45
+                    ),
+                  ),
+                );
+              }
+      
               return LiveList(
-                
                   itemCount: controller.products.length,
                   itemBuilder: (context, index, animation) {
                     return SlideTransition(
@@ -123,7 +136,8 @@ class SearchPage extends GetView<SearchController> {
                         end: Offset(0, 0),
                       ).animate(animation),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 1.h / 2),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 1.h / 2, horizontal: 3.w),
                         child: InkWell(
                           onTap: () {
                             Get.to(ProductDetailPage(),
@@ -157,8 +171,7 @@ class SearchPage extends GetView<SearchController> {
                                         Expanded(
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
-                                                vertical: 2.h,
-                                                horizontal: 4.w),
+                                                vertical: 2.h, horizontal: 4.w),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -167,13 +180,11 @@ class SearchPage extends GetView<SearchController> {
                                                 AutoSizeText(
                                                   controller
                                                       .products[index].title!,
-                                                  
                                                   style: PersianFonts.Vazir
                                                       .copyWith(
                                                     color: Colors.black54,
                                                     fontSize: 2.sp,
-                                                    fontWeight:
-                                                        FontWeight.w700,
+                                                    fontWeight: FontWeight.w700,
                                                   ),
                                                 ),
                                                 Row(
@@ -181,22 +192,19 @@ class SearchPage extends GetView<SearchController> {
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     AutoSizeText(
-                                                      controller
-                                                              .products[index]
+                                                      controller.products[index]
                                                               .price!
                                                               .seRagham()
                                                               .toPersianDigit() +
                                                           "toman".tr,
-                                                      style: PersianFonts
-                                                              .Vazir
+                                                      style: PersianFonts.Vazir
                                                           .copyWith(
                                                               color: Colors
                                                                   .green[600],
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w700,
-                                                              fontSize:
-                                                                  13.sp),
+                                                              fontSize: 13.sp),
                                                     ),
                                                   ],
                                                 ),

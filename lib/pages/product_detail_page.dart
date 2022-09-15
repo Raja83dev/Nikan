@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -24,11 +26,17 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../widgets/limited_text.dart';
 
 class ProductDetailPage extends GetView<ProductDetailController> {
-  const ProductDetailPage({Key? key}) : super(key: key);
+  ProductDetailPage({this.id});
+
+  String? id;
 
   @override
   Widget build(BuildContext context) {
-    controller.getDetail(int.parse(Get.arguments));
+    if (id != null) {
+      controller.getDetail(int.parse(id!));
+    } else {
+      controller.getDetail(int.parse(Get.arguments));
+    }
 
     return Obx(() {
       if (controller.isLoading.value) {
@@ -50,15 +58,17 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   child: _topSlider(),
                 ),
                 SlidingUpPanel(
+
+
+
                   onPanelOpened: () {
                     controller.panelIsOpen.value = true;
                   },
                   onPanelClosed: () {
                     controller.panelIsOpen.value = false;
                   },
-                  onPanelSlide: (position) {
-                    controller.update(["size"]);
-                  },
+                
+
                   panelBuilder: (sc) {
                     return SingleChildScrollView(
                       controller: sc,
@@ -66,6 +76,9 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                         children: [
                           //  _categoryTitle(),
                           // Divider(),
+
+
+
 
                           AutoSizeText(
                             controller.productDetail!.title!.limited(30),
@@ -122,7 +135,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                 ),
               ],
             ),
-            _buttonWidget(),
+           _buttonWidget(),
           ],
         ),
       );
@@ -297,121 +310,113 @@ class ProductDetailPage extends GetView<ProductDetailController> {
   }
 
   Widget _buttonWidget() {
-    return GetBuilder<ProductDetailController>(
-      assignId: true,
-      id: "size",
-      builder: (context) {
-        return AnimatedPositioned(
-          left: 5.w,
-          right: 5.w,
-          bottom: controller.panelIsOpen.value ? 2.h : -25.h,
-          duration: Duration(seconds: 1),
-          curve: Curves.easeIn,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 2.w),
-            width: 100.w,
-            height: 10.h,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.w),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5), //shadow color
-                  spreadRadius: 2, // spread radius
-                  blurRadius: 7, // shadow blur radius
-                  offset: const Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Builder(
-                  builder: (context) {
-                    if (controller.isSending.value == false) {
-                      if (controller.productDetail!.inCart == "200") {
+     return AnimatedPositioned(
+            left: 5.w,
+            right: 5.w,
+            bottom: controller.panelIsOpen.value ? 2.h : -25.h,
+            duration: Duration(seconds: 1),
+            curve: Curves.easeIn,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 2.w),
+              width: 100.w,
+              height: 10.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.w),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5), //shadow color
+                    spreadRadius: 2, // spread radius
+                    blurRadius: 7, // shadow blur radius
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Obx(
+                    () {
+                      if (controller.isSending.value == false) {
+                        if (controller.productDetail!.inCart == "200") {
+                          return CupertinoButton(
+                            onPressed: () {
+                              controller.removeFromCart();
+                            },
+                            child: Center(
+                              child: Text(
+                                "remove_from_cart".tr,
+                                style: PersianFonts.Yekan.copyWith(
+                                  color: Colors.red[800],
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13.sp,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
                         return CupertinoButton(
                           onPressed: () {
-                            controller.removeFromCart();
-                            
+                            controller.addToCart();
                           },
                           child: Center(
                             child: Text(
-                              "remove_from_cart".tr,
+                              "add_to_cart".tr,
                               style: PersianFonts.Yekan.copyWith(
-                                color: Colors.red[800],
+                                color: Colors.black45,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 13.sp,
                               ),
                             ),
                           ),
                         );
+                      } else {
+                        return SpinKitSpinningLines(color: Colors.indigo);
                       }
-                      return CupertinoButton(
-                        onPressed: () {
-                          controller.addToCart();
-                        },
-                        child: Center(
-                          child: Text(
-                            "add_to_cart".tr,
-                            style: PersianFonts.Yekan.copyWith(
-                              color: Colors.black45,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13.sp,
-                            ),
-                          ),
+                    },
+                  ),
+                  Row(
+                    children: [
+                      AutoSizeText(
+                        controller.productDetail!.price!.seRagham() +
+                            "toman".tr,
+                        maxLines: 1,
+                        style: PersianFonts.Yekan.copyWith(
+                          height: 1.5,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.green[700],
                         ),
-                      );
-                    } else {
-                      return SpinKitSpinningLines(color: Colors.indigo);
-                    }
-                  },
-                ),
-                Row(
-                  children: [
-                    AutoSizeText(
-                      controller.productDetail!.price!.seRagham() + "toman".tr,
-                      maxLines: 1,
-                      style: PersianFonts.Yekan.copyWith(
-                        height: 1.5,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.green[700],
                       ),
-                    ),
-                    SizedBox(
-                      width: 1.h,
-                    ),
-                    AutoSizeText(
-                      controller.productDetail!.delPrice!.seRagham(),
-                      maxLines: 1,
-                      style: PersianFonts.Yekan.copyWith(
-                        decoration: TextDecoration.lineThrough,
-                        height: 1.5,
-                        fontSize: 7.sp,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.red[700],
+                      SizedBox(
+                        width: 1.h,
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      AutoSizeText(
+                        controller.productDetail!.delPrice!.seRagham(),
+                        maxLines: 1,
+                        style: PersianFonts.Yekan.copyWith(
+                          decoration: TextDecoration.lineThrough,
+                          height: 1.5,
+                          fontSize: 7.sp,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.red[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+      
   }
 
   Widget _selectSize() {
-    if (controller.productDetail!.size!.length == 0) {
+    return Obx((){
+       if (controller.productDetail!.size!.length == 0) {
       return SizedBox();
     }
-    return GetBuilder<ProductDetailController>(
-        id: "size",
-        assignId: true,
-        builder: (context) {
-          return SizedBox(
+        return SizedBox(
             width: 90.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,7 +441,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                     return InkWell(
                       onTap: () {
                         controller.selectedSizeIndex.value = index;
-                        controller.changeSize(index);
+                 
                       },
                       child: SwitchCipper(
                         isSelect: controller.selectedSizeIndex.value == index,
@@ -479,7 +484,10 @@ class ProductDetailPage extends GetView<ProductDetailController> {
               ],
             ),
           );
-        });
+    
+
+    });
+   
   }
 
   Widget _details() {
@@ -550,9 +558,11 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                   (index) {
                 return InkWell(
                   onTap: () {
-                    controller.getDetail(
-                        controller.productDetail!.related![index].id!);
-                    controller.selectedSizeIndex.value = 0;
+
+                    // TODO
+                    
+               controller.getDetail(controller.productDetail!.related![index].id!);
+           
                   },
                   child: Padding(
                     padding: EdgeInsets.all(2.w),

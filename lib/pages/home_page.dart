@@ -30,38 +30,18 @@ class HomePage extends GetView<HomeController> {
           centerTitle: true,
           pinned: true,
           leadingWidth: 20.w,
-          actions: [
-            ShaderMask(
-              blendMode: BlendMode.clear,
-              shaderCallback: (Rect bounds) {
-                return LinearGradient(colors: [Colors.white, Colors.white])
-                    .createShader(bounds);
-              },
-              child: Image.asset(
-                "assets/icons/nikan_logo.png",
-                fit: BoxFit.fill,
-              ),
-            ),
-          ],
           leading: InkWell(
             onTap: () {
               Get.to(ShopCartPage());
             },
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.only(right: 3.w),
-                child: Text(
-                  "cart".tr,
-                  style: PersianFonts.Vazir.copyWith(
-                      fontSize: 11.sp, fontWeight: FontWeight.w800),
-                ),
-              ),
-            ),
+            child: Icon(Icons.shopping_cart_outlined),
           ),
           title: Text(
             "nikan".tr,
             style: PersianFonts.Vazir.copyWith(
-                fontSize: 17.sp, fontWeight: FontWeight.w800),
+              fontSize: 17.sp,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
         SliverToBoxAdapter(
@@ -92,7 +72,7 @@ class HomePage extends GetView<HomeController> {
                             padding: EdgeInsets.symmetric(horizontal: 3.w),
                             child: IconButton(
                               onPressed: () {
-                            Get.bottomSheet(SearchPage());
+                                Get.bottomSheet(SearchPage());
                               },
                               icon: Icon(Icons.search),
                             ),
