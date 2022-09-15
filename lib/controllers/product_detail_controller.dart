@@ -15,13 +15,14 @@ class ProductDetailController extends GetxController {
  var panelIsOpen=false.obs;
 
   void getDetail(int id) async {
-    
+   
      panelIsOpen.value = false;
      selectedSizeIndex.value=0;
     isLoading.value = true;
     productDetail = await ApiService.productdetail(id);
     productDetail!.gallery!.add(Gallery(imgUrl: productDetail!.image));
     isLoading.value = false;
+
     print("Product ID : " + productDetail!.id.toString());
   }
 
