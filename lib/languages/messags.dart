@@ -51,7 +51,15 @@ class Messages extends Translations {
           "show_detail": "نمایش جزییات",
           "not_product_in_brand": "این برند هیچ محصولی ندارد",
           "profile": "پروفایل کاربری",
-          "not_founded_product": "محصولی یافت نشد"
+          "not_founded_product": "محصولی یافت نشد",
+          "current_order": " جاری",
+          "delivered_order": " تحویل شده",
+          "returned_order": " مرجوع شده",
+          "orders": "سفارشات",
+          "summary_of_my_situation": "خلاصه سفارشات من",
+          "no_orders": "سفارشی ثبت نشده",
+          "saved": "لیست علاقه مندی های من",
+          "no_saved": "لیست علاقه مندی ها خالی است",
         },
       };
 }

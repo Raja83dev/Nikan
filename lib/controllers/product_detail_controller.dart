@@ -12,15 +12,14 @@ class ProductDetailController extends GetxController {
   var isSending = false.obs;
 
   var selectedSizeIndex = 0.obs;
- var panelIsOpen=false.obs;
+  var panelIsOpen = false.obs;
 
   void getDetail(int id) async {
-   
-     panelIsOpen.value = false;
-     selectedSizeIndex.value=0;
+    panelIsOpen.value = false;
+    selectedSizeIndex.value = 0;
     isLoading.value = true;
     productDetail = await ApiService.productdetail(id);
-    productDetail!.gallery!.add(Gallery(imgUrl: productDetail!.image));
+    productDetail!.gallery!.add(Gallery(imgUrl: productDetail!.image!));
     isLoading.value = false;
 
     print("Product ID : " + productDetail!.id.toString());
@@ -28,7 +27,7 @@ class ProductDetailController extends GetxController {
 
   void addToCart() async {
     isSending.value = true;
-      
+
     var res = await ApiService.addToCart(productDetail!.id!);
     if (res == true) {
       productDetail!.inCart = "200";
@@ -36,14 +35,11 @@ class ProductDetailController extends GetxController {
     }
 
     isSending.value = false;
-        
   }
-
- 
 
   void removeFromCart() async {
     isSending.value = true;
-      
+
     var res = await ApiService.removeFromCart(productDetail!.id!);
     if (res == true) {
       productDetail!.inCart = "100";
@@ -51,6 +47,5 @@ class ProductDetailController extends GetxController {
     }
 
     isSending.value = false;
-      
   }
 }

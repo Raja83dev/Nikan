@@ -4,6 +4,7 @@ import 'package:nikan_app/controllers/home_controller.dart';
 import 'package:nikan_app/controllers/login_controller.dart';
 import 'package:nikan_app/controllers/main_controller.dart';
 import 'package:nikan_app/controllers/product_detail_controller.dart';
+import 'package:nikan_app/controllers/profile_controller.dart';
 import 'package:nikan_app/controllers/search_controller.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
 import 'package:nikan_app/controllers/splash_controller.dart';
@@ -22,9 +23,8 @@ class RootBinding extends Bindings {
     Get.lazyPut<ProductDetailController>(() => ProductDetailController(),
         fenix: true);
     Get.lazyPut<ShopCartController>(() => ShopCartController(), fenix: true);
-    Get.lazyPut<SplashController>(() => SplashController(),fenix: true);
-    Get.lazyPut<ShopCartController>(() => ShopCartController(),fenix: true);
-    
-    
+    Get.lazyPut<SplashController>(() => SplashController(), fenix: true);
+    Get.lazyPut<ShopCartController>(() => ShopCartController(), fenix: true);
+    Get.lazyPut<ProfileController>(() => ProfileController(), fenix: true);
   }
 }

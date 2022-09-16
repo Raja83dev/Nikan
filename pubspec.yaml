@@ -54,7 +54,10 @@ dependencies:
   simple_animations: 
   sliding_up_panel:
   auto_animated:
+  flutter_svg:
+  animate_do:
 
+  
   flutter:
     sdk: flutter
 
