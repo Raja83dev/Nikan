@@ -35,22 +35,28 @@ class EditProfilePage extends GetView<ProfileController> {
               SizedBox(
                 height: 6.h,
               ),
-              controller.userData!.avatar == "100"
-                  ? CircleAvatar(
-                      radius: 15.w,
-                      child: Text(
-                        "select_profile_image".tr,
-                        textAlign: TextAlign.center,
-                        style: PersianFonts.Vazir.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 10.sp),
+              InkWell(
+                onTap: () {
+                  print("ENABLE");
+                  controller.selectImage();
+                },
+                child: controller.userData!.avatar == "100"
+                    ? CircleAvatar(
+                        radius: 15.w,
+                        child: Text(
+                          "select_profile_image".tr,
+                          textAlign: TextAlign.center,
+                          style: PersianFonts.Vazir.copyWith(
+                              fontWeight: FontWeight.w600, fontSize: 10.sp),
+                        ),
+                      )
+                    : CircleAvatar(
+                        radius: 15.w,
+                        backgroundImage: CachedNetworkImageProvider(
+                          controller.userData!.avatar!,
+                        ),
                       ),
-                    )
-                  : CircleAvatar(
-                      radius: 15.w,
-                      backgroundImage: CachedNetworkImageProvider(
-                        controller.userData!.avatar!,
-                      ),
-                    ),
+              ),
               SizedBox(
                 height: 2.h,
               ),
@@ -70,7 +76,6 @@ class EditProfilePage extends GetView<ProfileController> {
                 label: "email".tr,
               ),
               NeuTextField(
-                readOnly: true,
                 controller: controller.passwordField,
                 keyboardType: TextInputType.visiblePassword,
                 label: "password".tr,

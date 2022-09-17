@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:nikan_app/controllers/profile_controller.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
 import 'package:nikan_app/pages/edit_profile_page.dart';
+import 'package:nikan_app/pages/saved_list_page.dart';
 import 'package:nikan_app/pages/shop_cart_page.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:persian_fonts/persian_fonts.dart';
@@ -97,12 +99,17 @@ class ProfilePage extends GetView<ProfileController> {
                     fontWeight: FontWeight.w800),
               );
             }
-            return Text(
-              "show_saved".tr + " (${controller.saves!.length})",
-              style: PersianFonts.Vazir.copyWith(
-                  fontSize: 12.sp,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w800),
+            return InkWell(
+              onTap: () {
+                Get.to(SavedListPage());
+              },
+              child: Text(
+                "show_saved".tr + " (${controller.saves!.length})",
+                style: PersianFonts.Vazir.copyWith(
+                    fontSize: 12.sp,
+                    color: Colors.black45,
+                    fontWeight: FontWeight.w800),
+              ),
             );
           }),
         ],
@@ -113,7 +120,7 @@ class ProfilePage extends GetView<ProfileController> {
   _drawer() {
     return Obx(
       () {
-        if (controller.isloadingProfile.value) {
+        if (controller.isloadingSaves.value) {
           return Center(
             child: SpinKitCubeGrid(color: Colors.indigo),
           );
@@ -146,7 +153,7 @@ class ProfilePage extends GetView<ProfileController> {
                 onTap: () {
                   Get.to(EditProfilePage());
                 },
-                leading: Icon(Icons.arrow_right_rounded),
+                //   leading: Icon(Icons.arrow_right_rounded),
                 title: Text(
                   "edit_profile".tr,
                   style: PersianFonts.Vazir.copyWith(
@@ -159,7 +166,7 @@ class ProfilePage extends GetView<ProfileController> {
                 onTap: () {
                   Get.to(ShopCartPage());
                 },
-                leading: Icon(Icons.arrow_right_rounded),
+                //  leading: Icon(Icons.arrow_right_rounded),
                 title: Text(
                   "cart".tr,
                   style: PersianFonts.Vazir.copyWith(
@@ -170,7 +177,7 @@ class ProfilePage extends GetView<ProfileController> {
               ),
               ListTile(
                 onTap: () {},
-                leading: Icon(Icons.arrow_right_rounded),
+                //  leading: Icon(Icons.arrow_right_rounded),
                 title: Text(
                   "orders".tr,
                   style: PersianFonts.Vazir.copyWith(
@@ -180,8 +187,10 @@ class ProfilePage extends GetView<ProfileController> {
                 ),
               ),
               ListTile(
-                onTap: () {},
-                leading: Icon(Icons.arrow_right_rounded),
+                onTap: () {
+                  Get.to(SavedListPage());
+                },
+                //    leading: Icon(Icons.arrow_right_rounded),
                 title: Text(
                   "save_like".tr,
                   style: PersianFonts.Vazir.copyWith(
@@ -191,8 +200,10 @@ class ProfilePage extends GetView<ProfileController> {
                 ),
               ),
               ListTile(
-                onTap: () {},
-                leading: Icon(Icons.arrow_right_rounded),
+                onTap: () {
+                  controller.exitAccount();
+                },
+                //   leading: Icon(Icons.arrow_right_rounded),
                 title: Text(
                   "exit_from_account".tr,
                   style: PersianFonts.Vazir.copyWith(
@@ -439,14 +450,22 @@ class ProfilePage extends GetView<ProfileController> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 15.w,
-                      backgroundImage: controller.userData!.avatar == "100"
-                          ? null
-                          : CachedNetworkImageProvider(
-                              controller.userData!.avatar!,
+                    controller.userData!.avatar == "100"
+                        ? CircleAvatar(
+                            radius: 15.w,
+                            child: Text(
+                              controller.userData!.fullName!
+                                  .substring(0, 1)
+                                  .toUpperCase(),
+                              style: PersianFonts.Vazir.copyWith(
+                                  fontSize: 25.sp, fontWeight: FontWeight.w800),
                             ),
-                    ),
+                          )
+                        : CircleAvatar(
+                            radius: 15.w,
+                            backgroundImage: CachedNetworkImageProvider(
+                                controller.userData!.avatar!),
+                          ),
                     SizedBox(
                       height: 2.h,
                     ),
@@ -467,7 +486,9 @@ class ProfilePage extends GetView<ProfileController> {
                   ],
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    controller.exitAccount();
+                  },
                   child: Icon(
                     Icons.exit_to_app,
                   ),

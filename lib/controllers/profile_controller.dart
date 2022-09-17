@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
 import 'package:nikan_app/models/save_product_model.dart';
 import 'package:nikan_app/models/user_model.dart';
 import 'package:nikan_app/services/api_service.dart';
+import 'package:persian_fonts/persian_fonts.dart';
 
 class ProfileController extends GetxController {
   TextEditingController nameField = TextEditingController();
@@ -15,6 +20,7 @@ class ProfileController extends GetxController {
   TextEditingController bornField = TextEditingController();
 
   var isloadingProfile = true.obs;
+  var isloadingSaves = false.obs;
 
   UserModel? userData;
   List<SaveProductModel>? saves;
@@ -37,8 +43,11 @@ class ProfileController extends GetxController {
   }
 
   Future<void> getSaves() async {
+    isloadingSaves.value = true;
+
     var data = (await ApiService.productSaveList());
     saves = data;
+    isloadingSaves.value = false;
   }
 
   void removeProduct(String id) async {
@@ -54,7 +63,9 @@ class ProfileController extends GetxController {
   void saveUserData() async {
     isloadingProfile.value = true;
     await ApiService.saveUserData(UserModel(
+      password: passwordField.text,
       fullName: nameField.text,
+      avatar: uploadimage ?? "",
       phone: phoneField.text,
       born: bornField.text,
       email: emailField.text,
@@ -64,5 +75,50 @@ class ProfileController extends GetxController {
     await getData();
     Get.back();
     isloadingProfile.value = false;
+  }
+
+  String? uploadimage = "";
+
+  Future<void> selectImage() async {
+    var data =
+        (await ImagePicker.platform.pickImage(source: ImageSource.gallery));
+
+    uploadimage = data!.path;
+    print(uploadimage);
+  }
+
+  void exitAccount() {
+    Get.defaultDialog(
+      title: "warning".tr,
+      titleStyle: PersianFonts.Vazir.copyWith(
+        fontWeight: FontWeight.w800,
+      ),
+      middleText: "do_you_want_to_log_out_of_your_account?".tr,
+      middleTextStyle: PersianFonts.Vazir.copyWith(
+        fontWeight: FontWeight.w800,
+      ),
+      cancel: CupertinoButton(
+        child: Text(
+          "no".tr,
+          style: PersianFonts.Vazir.copyWith(
+            color: Colors.green[700],
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+      confirm: CupertinoButton(
+        child: Text(
+          "ok".tr,
+          style: PersianFonts.Vazir.copyWith(
+            color: Colors.red[700],
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        onPressed: () {},
+      ),
+    );
   }
 }

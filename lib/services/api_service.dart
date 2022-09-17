@@ -273,18 +273,22 @@ class ApiService {
 
   static Future<void> saveUserData(UserModel model) async {
     var prefs = await SharedPreferences.getInstance();
-    var req = await http.post(
-      Uri.parse(baseUrl + "update/profile/${prefs.getString("APP_TOKEN")}"),
-      body: {
-        "full_name": model.fullName,
-        "phone": model.phone,
-        "email": model.email,
-        "id_number": model.idNumber,
-        "born": model.born,
-        "job": model.job,
-      },
-    );
-    print("Status Code For Update Profile ${req.statusCode}");
+    var request = http.MultipartRequest("POST",
+        Uri.parse(baseUrl + "update/profile/${prefs.getString("APP_TOKEN")}"));
+    request.files
+        .add(await http.MultipartFile.fromPath('avatar', model.avatar!));
+
+    request.fields['full_name'] = model.fullName!;
+    request.fields['phone'] = model.phone!;
+    request.fields['email'] = model.email!;
+    request.fields['id_number'] = model.idNumber!;
+    request.fields['born'] = model.born!;
+    request.fields['job'] = model.job!;
+    request.fields['password'] = model.password!;
+
+    var response = await request.send();
+
+    print("Status Code For Update Profile ${response.statusCode}");
   }
 
   static Future<void> saveProduct(String id) async {
@@ -309,6 +313,10 @@ class ApiService {
     var prefs = await SharedPreferences.getInstance();
     var req = await http.get(Uri.parse(
         baseUrl + "list/save/product/${prefs.getString("APP_TOKEN")}"));
+
+    if (req.body.toString().contains("100")) {
+      return <SaveProductModel>[];
+    }
 
     var data = jsonDecode(req.body);
     var list = <SaveProductModel>[];

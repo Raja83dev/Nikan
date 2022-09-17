@@ -8,9 +8,11 @@ class UserModel {
   String? avatar;
   String? state;
   String? city;
+  String? password;
 
   UserModel(
-      {this.fullName,
+      {this.password,
+      this.fullName,
       this.phone,
       this.idNumber,
       this.born,

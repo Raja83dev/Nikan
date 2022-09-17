@@ -73,6 +73,11 @@ class Messages extends Translations {
           "show_carts": "مشاهده سبد خرید",
           "exit_from_account": "خروج از حساب کاربری",
           "save_like": "علاقه مندی های من",
+          "warning": "اخطار",
+          "do_you_want_to_log_out_of_your_account?":
+              "میخواهید از اکانت خود خارج شوید؟",
+          "no": "خیر",
+          "ok": "بله",
         },
       };
 }
