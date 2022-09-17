@@ -8,9 +8,11 @@ import 'package:nikan_app/models/cart_product_model.dart';
 import 'package:nikan_app/models/product_detail_model.dart';
 import 'package:nikan_app/models/product_model.dart';
 import 'package:nikan_app/models/products_model.dart';
+import 'package:nikan_app/models/save_product_model.dart';
 import 'package:nikan_app/models/slider_image_model.dart';
 import 'package:nikan_app/models/sub_category_model.dart';
 import 'package:nikan_app/models/tag_model.dart';
+import 'package:nikan_app/models/user_model.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -182,6 +184,10 @@ class ApiService {
 
   static Future<bool> loginWithToken() async {
     var prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey("APP_TOKEN")) {
+      return false;
+    }
+
     print("TOKEN : ${prefs.getString("APP_TOKEN")}");
     var req = await http.get(
         Uri.parse(baseUrl + "token/check/${prefs.getString("APP_TOKEN")}"));
@@ -210,6 +216,7 @@ class ApiService {
         baseUrl + "remove/cart/$id?token=${prefs.getString("APP_TOKEN")}"));
 
     if (req.statusCode == 200) {
+      print("Deleted");
       var data = jsonDecode(req.body);
 
       return true;
@@ -243,6 +250,78 @@ class ApiService {
     } else {
       return null;
     }
+  }
+
+  static Future<UserModel> getUserDatas() async {
+    var prefs = await SharedPreferences.getInstance();
+    var req = await http.get(
+        Uri.parse(baseUrl + "edit/profile/${prefs.getString("APP_TOKEN")}"));
+
+    var data = jsonDecode(req.body);
+    return UserModel(
+      avatar: data['avatar'].toString(),
+      born: data['born'].toString(),
+      city: data['city'].toString(),
+      email: data['email'].toString(),
+      fullName: data['full_name'].toString(),
+      idNumber: data['id_number'].toString(),
+      job: data['job'].toString(),
+      phone: data['phone'].toString(),
+      state: data['state'].toString(),
+    );
+  }
+
+  static Future<void> saveUserData(UserModel model) async {
+    var prefs = await SharedPreferences.getInstance();
+    var req = await http.post(
+      Uri.parse(baseUrl + "update/profile/${prefs.getString("APP_TOKEN")}"),
+      body: {
+        "full_name": model.fullName,
+        "phone": model.phone,
+        "email": model.email,
+        "id_number": model.idNumber,
+        "born": model.born,
+        "job": model.job,
+      },
+    );
+    print("Status Code For Update Profile ${req.statusCode}");
+  }
+
+  static Future<void> saveProduct(String id) async {
+    var prefs = await SharedPreferences.getInstance();
+    var req = await http.get(Uri.parse(
+        baseUrl + "save/product/$id?token=${prefs.getString("APP_TOKEN")}"));
+    if (jsonDecode(req.body)['status'].toString() == "200") {
+      print("Saved");
+    }
+  }
+
+  static Future<void> removeSaveProduct(String id) async {
+    var prefs = await SharedPreferences.getInstance();
+    var req = await http.get(Uri.parse(baseUrl +
+        "remove/save/product/$id?token=${prefs.getString("APP_TOKEN")}"));
+    if (jsonDecode(req.body)['status'].toString() == "200") {
+      print("Saved");
+    }
+  }
+
+  static Future<List<SaveProductModel>> productSaveList() async {
+    var prefs = await SharedPreferences.getInstance();
+    var req = await http.get(Uri.parse(
+        baseUrl + "list/save/product/${prefs.getString("APP_TOKEN")}"));
+
+    var data = jsonDecode(req.body);
+    var list = <SaveProductModel>[];
+    for (var item in data) {
+      list.add(
+        SaveProductModel(
+          id: item['id'],
+          image: item['image'],
+          title: item['title'],
+        ),
+      );
+    }
+    return list;
   }
 }
 

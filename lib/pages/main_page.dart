@@ -34,7 +34,6 @@ class MainPage extends GetView<MainController> {
       HomePage(),
       SearchPage(),
       CategoriesPage(),
-   
       ProfilePage()
     ];
 
@@ -51,7 +50,7 @@ class MainPage extends GetView<MainController> {
               Icons.home,
             ),
           ),
-            PersistentBottomNavBarItem(
+          PersistentBottomNavBarItem(
             activeColorPrimary: Colors.indigo,
             inactiveColorPrimary: Colors.grey,
             icon: Icon(
@@ -65,7 +64,6 @@ class MainPage extends GetView<MainController> {
               Icons.category_outlined,
             ),
           ),
-        
           PersistentBottomNavBarItem(
             activeColorPrimary: Colors.indigo,
             inactiveColorPrimary: Colors.grey,

@@ -25,7 +25,7 @@ class HomePage extends GetView<HomeController> {
       scrollDirection: Axis.vertical,
       slivers: [
         SliverAppBar(
-          backgroundColor: Colors.indigo[300],
+          backgroundColor: Colors.indigo,
           elevation: 3,
           centerTitle: true,
           pinned: true,

@@ -47,6 +47,29 @@ class ProductDetailPage extends GetView<ProductDetailController> {
         );
       }
       return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.indigo,
+          actions: [
+            Obx(() {
+              if (controller.isSaving.value) {
+                return SpinKitRotatingCircle(
+                  color: Colors.white,
+                );
+              }
+              return InkWell(
+                onTap: controller.SaveOrUnSave,
+                child: Padding(
+                  padding: EdgeInsets.all(8.sp),
+                  child: Icon(
+                    controller.productDetail!.save == "100"
+                        ? Icons.bookmark_outline
+                        : Icons.bookmark,
+                  ),
+                ),
+              );
+            }),
+          ],
+        ),
         backgroundColor: Colors.white,
         body: Stack(
           fit: StackFit.expand,
@@ -225,6 +248,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                     },
                     child: AutoSizeText(
                       controller.productDetail!.commentCount!.toString() +
+                          " " +
                           "comment".tr,
                       style: PersianFonts.Yekan.copyWith(
                         height: 1.5,
@@ -404,87 +428,84 @@ class ProductDetailPage extends GetView<ProductDetailController> {
   }
 
   _selectSize() {
-    return StatefulBuilder(builder: (context, setState) {
-       if (controller.productDetail!.size!.length == 0) {
-      return SizedBox();
-    }
+    return StatefulBuilder(
+      builder: (context, setState) {
+        if (controller.productDetail!.size!.length == 0) {
+          return SizedBox();
+        }
 
-    return SizedBox(
-      width: 90.w,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AutoSizeText(
-            "select_size".tr,
-            maxLines: 4,
-            style: PersianFonts.Yekan.copyWith(
-              height: 1.5,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w800,
-              color: Colors.black54,
-            ),
-          ),
-          SizedBox(
-            height: 3.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:
-                List.generate(controller.productDetail!.size!.length, (index) {
-              return InkWell(
-                onTap: () {
-                  controller.selectedSizeIndex.value = index;
-                 setState(() {
-                   
-                 },);
-                },
-                child: SwitchCipper(
-                  isSelect: controller.selectedSizeIndex.value == index,
-                  initSelect: controller.selectedSizeIndex.value == index,
-                  background: Container(
-                    color: Colors.white,
-                    alignment: Alignment.center,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.h),
-                    child: AutoSizeText(
-                      controller.productDetail!.size![index].value! ,
-                      style: PersianFonts.Yekan.copyWith(
-                        fontSize: 13.sp,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.h),
-                    decoration: BoxDecoration(
-                      color: Colors.indigo.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(5.w),
-                    ),
-                    child: AutoSizeText(
-                      controller.productDetail!.size![index].value! ,
-                      style: PersianFonts.Yekan.copyWith(
-                        fontSize: 13.sp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+        return SizedBox(
+          width: 90.w,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AutoSizeText(
+                "select_size".tr,
+                maxLines: 4,
+                style: PersianFonts.Yekan.copyWith(
+                  height: 1.5,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black54,
                 ),
-              );
-            }),
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(controller.productDetail!.size!.length,
+                    (index) {
+                  return InkWell(
+                    onTap: () {
+                      controller.selectedSizeIndex.value = index;
+                      setState(
+                        () {},
+                      );
+                    },
+                    child: SwitchCipper(
+                      isSelect: controller.selectedSizeIndex.value == index,
+                      initSelect: controller.selectedSizeIndex.value == index,
+                      background: Container(
+                        color: Colors.white,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 1.h, horizontal: 2.h),
+                        child: AutoSizeText(
+                          controller.productDetail!.size![index].value!,
+                          style: PersianFonts.Yekan.copyWith(
+                            fontSize: 13.sp,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 1.h, horizontal: 2.h),
+                        decoration: BoxDecoration(
+                          color: Colors.indigo.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(5.w),
+                        ),
+                        child: AutoSizeText(
+                          controller.productDetail!.size![index].value!,
+                          style: PersianFonts.Yekan.copyWith(
+                            fontSize: 13.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
-  
-  
-    },);
-    
-   
-  
   }
 
   _details() {

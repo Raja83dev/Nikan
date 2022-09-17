@@ -2,6 +2,7 @@ class ProductDetail {
   String? id;
   String? inCart;
   String? title;
+  String? save;
   int? commentCount;
   String? avrage;
   String? price;
@@ -18,11 +19,9 @@ class ProductDetail {
   List<Comment>? comment;
   List<Details>? details;
   List<Related>? related;
-  
 
   ProductDetail(
-      {
-      this.id,
+      {this.id,
       this.title,
       this.commentCount,
       this.avrage,
@@ -41,10 +40,10 @@ class ProductDetail {
       this.details,
       this.related,
       this.inCart,
-      
-      });
+      this.save});
 
   ProductDetail.fromJson(dynamic json) {
+    save = json['save'].toString();
     id = json['product_id'].toString();
     inCart = json['cart'].toString();
     title = json['title'];
@@ -122,8 +121,6 @@ class ProductDetail {
     }
     return data;
   }
-
-
 }
 
 class Gallery {

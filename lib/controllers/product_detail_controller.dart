@@ -10,6 +10,7 @@ class ProductDetailController extends GetxController {
 
   var isLoading = false.obs;
   var isSending = false.obs;
+  var isSaving = false.obs;
 
   var selectedSizeIndex = 0.obs;
   var panelIsOpen = false.obs;
@@ -20,6 +21,7 @@ class ProductDetailController extends GetxController {
     isLoading.value = true;
     productDetail = await ApiService.productdetail(id);
     productDetail!.gallery!.add(Gallery(imgUrl: productDetail!.image!));
+
     isLoading.value = false;
 
     print("Product ID : " + productDetail!.id.toString());
@@ -47,5 +49,17 @@ class ProductDetailController extends GetxController {
     }
 
     isSending.value = false;
+  }
+
+  Future<void> SaveOrUnSave() async {
+    isSaving.value = true;
+    if (productDetail!.save == "100") {
+      await ApiService.saveProduct(productDetail!.id!);
+      productDetail!.save = "200";
+    } else {
+      await ApiService.removeSaveProduct(productDetail!.id!);
+      productDetail!.save = "100";
+    }
+    isSaving.value = false;
   }
 }
