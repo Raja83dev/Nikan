@@ -39,7 +39,7 @@ class ProfilePage extends GetView<ProfileController> {
         child: Column(
           children: [
             _profile(),
-            _summaryOfMySituation(),
+            //  _summaryOfMySituation(),
             _orders(),
             _savedList(),
             _cart(),
@@ -120,7 +120,7 @@ class ProfilePage extends GetView<ProfileController> {
   _drawer() {
     return Obx(
       () {
-        if (controller.isloadingSaves.value) {
+        if (controller.isloadingProfile.value) {
           return Center(
             child: SpinKitCubeGrid(color: Colors.indigo),
           );

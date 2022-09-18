@@ -20,7 +20,6 @@ class ProfileController extends GetxController {
   TextEditingController bornField = TextEditingController();
 
   var isloadingProfile = true.obs;
-  var isloadingSaves = false.obs;
 
   UserModel? userData;
   List<SaveProductModel>? saves;
@@ -43,11 +42,11 @@ class ProfileController extends GetxController {
   }
 
   Future<void> getSaves() async {
-    isloadingSaves.value = true;
+    isloadingProfile.value = true;
 
     var data = (await ApiService.productSaveList());
     saves = data;
-    isloadingSaves.value = false;
+    isloadingProfile.value = false;
   }
 
   void removeProduct(String id) async {

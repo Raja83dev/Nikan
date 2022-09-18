@@ -5,12 +5,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/profile_controller.dart';
+import 'package:nikan_app/controllers/saved_list_controller.dart';
 import 'package:nikan_app/pages/product_detail_page.dart';
 
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class SavedListPage extends GetView<ProfileController> {
+class SavedListPage extends GetView<SavedListController> {
   const SavedListPage({super.key});
 
   @override
@@ -28,7 +29,7 @@ class SavedListPage extends GetView<ProfileController> {
         ),
       ),
       body: Obx(() {
-        if (controller.isloadingSaves.value) {
+        if (controller.isloading.value) {
           return Center(
             child: SpinKitFadingCircle(color: Colors.indigo),
           );

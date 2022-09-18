@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/controllers/profile_controller.dart';
+import 'package:nikan_app/controllers/saved_list_controller.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
 import 'package:nikan_app/models/product_detail_model.dart';
 import 'package:nikan_app/services/api_service.dart';
@@ -62,6 +63,7 @@ class ProductDetailController extends GetxController {
       productDetail!.save = "100";
     }
     await Get.find<ProfileController>().getSaves();
+    await Get.find<SavedListController>().getSaves();
 
     isSaving.value = false;
   }
