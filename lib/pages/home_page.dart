@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/controllers/main_controller.dart';
 import 'package:nikan_app/pages/search_page.dart';
 import 'package:nikan_app/pages/shop_cart_page.dart';
@@ -25,7 +26,7 @@ class HomePage extends GetView<HomeController> {
       scrollDirection: Axis.vertical,
       slivers: [
         SliverAppBar(
-          backgroundColor: Colors.indigo,
+          backgroundColor: accentColor,
           elevation: 3,
           centerTitle: true,
           pinned: true,
@@ -74,7 +75,10 @@ class HomePage extends GetView<HomeController> {
                               onPressed: () {
                                 Get.bottomSheet(SearchPage());
                               },
-                              icon: Icon(Icons.search),
+                              icon: Icon(
+                                Icons.search,
+                                color: accentColor,
+                              ),
                             ),
                           )
                         : CupertinoButton(

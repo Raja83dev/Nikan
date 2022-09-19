@@ -32,7 +32,35 @@ class NeuTextField extends StatelessWidget {
           //you can set more BoxShadow() here
         ],
       ),
-      child: TextField(
+      child: TextFormField(
+        validator: (value) {
+          if (keyboardType == TextInputType.phone) {
+            if (value!.isEmpty ||
+                !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+                    .hasMatch(value)) {
+              //  r'^[0-9]{10}$' pattern plain match number with length 10
+              return "Enter Correct Phone Number";
+            } else {
+              return null;
+            }
+          } else if (keyboardType == TextInputType.emailAddress) {
+            if (value!.isEmpty ||
+                !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+              return "Enter Correct Email Address";
+            } else {
+              return null;
+            }
+          } else if (keyboardType == TextInputType.name) {
+            if (value!.isEmpty || !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+              //allow upper and lower case alphabets and space
+              return "Enter Correct Name";
+            } else {
+              return null;
+            }
+          } else {
+            return null;
+          }
+        },
         readOnly: readOnly,
         controller: controller,
         keyboardType: keyboardType,

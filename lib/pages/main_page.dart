@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/pages/profile_page.dart';
 import 'package:nikan_app/pages/search_page.dart';
 import 'package:nikan_app/pages/shop_cart_page.dart';
@@ -44,28 +45,28 @@ class MainPage extends GetView<MainController> {
 
         items: [
           PersistentBottomNavBarItem(
-            activeColorPrimary: Colors.indigo,
+            activeColorPrimary: accentColor,
             inactiveColorPrimary: Colors.grey,
             icon: Icon(
               Icons.home,
             ),
           ),
           PersistentBottomNavBarItem(
-            activeColorPrimary: Colors.indigo,
+            activeColorPrimary: accentColor,
             inactiveColorPrimary: Colors.grey,
             icon: Icon(
               Icons.search_outlined,
             ),
           ),
           PersistentBottomNavBarItem(
-            activeColorPrimary: Colors.indigo,
+            activeColorPrimary: accentColor,
             inactiveColorPrimary: Colors.grey,
             icon: Icon(
               Icons.category_outlined,
             ),
           ),
           PersistentBottomNavBarItem(
-            activeColorPrimary: Colors.indigo,
+            activeColorPrimary: accentColor,
             inactiveColorPrimary: Colors.grey,
             icon: Icon(
               Icons.person_outlined,

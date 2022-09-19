@@ -14,16 +14,16 @@ class ForgotPasswordPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.isSending.value=false;
+    controller.isSending.value = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            
             children: [
-
-              SizedBox(height: 8.h,),
+              SizedBox(
+                height: 8.h,
+              ),
               SizedBox(
                 width: 80.w,
                 height: 30.h,
@@ -66,13 +66,15 @@ class ForgotPasswordPage extends GetView<LoginController> {
               SizedBox(
                 height: 2.h,
               ),
-              MainButton(text: controller.isSending.value ? "sending".tr : "send".tr, clicked: () {
-                if(controller.isSending.value==true){
-                  return;
-                }
-                FocusScope.of(context).nextFocus();
-                controller.forgotPass();
-              }),
+              MainButton(
+                  text: controller.isSending.value ? "sending".tr : "send".tr,
+                  clicked: () {
+                    if (controller.isSending.value == true) {
+                      return;
+                    }
+                    //   FocusScope.of(context).nextFocus();
+                    controller.forgotPass();
+                  }),
               SizedBox(
                 height: 2.h,
               ),
@@ -80,7 +82,7 @@ class ForgotPasswordPage extends GetView<LoginController> {
                 text: "dont_have_account".tr,
                 btnText: "sign_up".tr,
                 clicked: () {
-                  Get.to(()=>SignUpPage());
+                  Get.to(() => SignUpPage());
                 },
               ),
             ],

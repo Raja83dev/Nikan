@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/pages/sub_categories_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:nikan_app/controllers/categories_controller.dart';
@@ -16,7 +17,7 @@ class CategoriesPage extends GetView<CategoriesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo,
+        backgroundColor: accentColor,
         centerTitle: true,
         title: AutoSizeText(
           "tags".tr,

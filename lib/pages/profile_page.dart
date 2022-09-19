@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/controllers/profile_controller.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
 import 'package:nikan_app/pages/edit_profile_page.dart';
@@ -26,7 +27,7 @@ class ProfilePage extends GetView<ProfileController> {
     return Scaffold(
       drawer: _drawer(),
       appBar: AppBar(
-        backgroundColor: Colors.indigo,
+        backgroundColor: accentColor,
         elevation: 3,
         centerTitle: true,
         title: Text(
@@ -39,7 +40,7 @@ class ProfilePage extends GetView<ProfileController> {
         child: Column(
           children: [
             _profile(),
-            //  _summaryOfMySituation(),
+            _summaryOfMySituation(),
             _orders(),
             _savedList(),
             _cart(),
@@ -59,6 +60,7 @@ class ProfilePage extends GetView<ProfileController> {
       padding: EdgeInsets.all(5.w),
       width: double.infinity,
       decoration: BoxDecoration(
+        border: Border.all(color: accentColor, width: (0.1).h),
         color: Colors.white,
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
@@ -130,12 +132,27 @@ class ProfilePage extends GetView<ProfileController> {
           child: ListView(
             children: [
               UserAccountsDrawerHeader(
-                currentAccountPicture: CircleAvatar(
-                  child: Text("R"),
-                ),
-                decoration: BoxDecoration(color: Colors.indigo),
+                currentAccountPicture: controller.userData!.avatar == "100"
+                    ? CircleAvatar(
+                        radius: 15.w,
+                        child: Text(
+                          controller.userData!.fullName!.length == 0
+                              ? ""
+                              : controller.userData!.fullName![0],
+                          style: PersianFonts.Vazir.copyWith(
+                              fontSize: 25.sp, fontWeight: FontWeight.w800),
+                        ),
+                      )
+                    : CircleAvatar(
+                        radius: 15.w,
+                        backgroundImage: CachedNetworkImageProvider(
+                            controller.userData!.avatar!),
+                      ),
+                decoration: BoxDecoration(color: accentColor),
                 accountName: Text(
-                  controller.userData!.fullName!,
+                  controller.userData!.fullName!.length == 0
+                      ? "no_name".tr
+                      : controller.userData!.fullName!,
                   style: PersianFonts.Vazir.copyWith(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
@@ -226,6 +243,7 @@ class ProfilePage extends GetView<ProfileController> {
       padding: EdgeInsets.all(5.w),
       width: double.infinity,
       decoration: BoxDecoration(
+        border: Border.all(color: accentColor, width: (0.1).h),
         color: Colors.white,
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
@@ -286,6 +304,7 @@ class ProfilePage extends GetView<ProfileController> {
       padding: EdgeInsets.all(5.w),
       width: double.infinity,
       decoration: BoxDecoration(
+        border: Border.all(color: accentColor, width: (0.1).h),
         color: Colors.white,
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
@@ -454,9 +473,9 @@ class ProfilePage extends GetView<ProfileController> {
                         ? CircleAvatar(
                             radius: 15.w,
                             child: Text(
-                              controller.userData!.fullName!
-                                  .substring(0, 1)
-                                  .toUpperCase(),
+                              controller.userData!.fullName!.length == 0
+                                  ? ""
+                                  : controller.userData!.fullName![0],
                               style: PersianFonts.Vazir.copyWith(
                                   fontSize: 25.sp, fontWeight: FontWeight.w800),
                             ),
@@ -470,16 +489,14 @@ class ProfilePage extends GetView<ProfileController> {
                       height: 2.h,
                     ),
                     Text(
-                      controller.userData!.fullName == "null"
-                          ? "not_registered".tr
+                      controller.userData!.fullName!.length == 0
+                          ? "no_name".tr
                           : controller.userData!.fullName!,
                       style: PersianFonts.Vazir.copyWith(
                           fontSize: 15.sp, fontWeight: FontWeight.w800),
                     ),
                     Text(
-                      controller.userData!.phone == "null"
-                          ? "not_registered".tr
-                          : controller.userData!.phone!,
+                      controller.userData!.phone!,
                       style: PersianFonts.Vazir.copyWith(
                           fontSize: 12.sp, fontWeight: FontWeight.w600),
                     ),
@@ -507,6 +524,7 @@ class ProfilePage extends GetView<ProfileController> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
+        border: Border.all(color: accentColor, width: (0.1).h),
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
           BoxShadow(

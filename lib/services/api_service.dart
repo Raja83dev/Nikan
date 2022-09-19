@@ -171,6 +171,10 @@ class ApiService {
     var req = await http.get(Uri.parse(
       baseUrl + "forget/password?phone=" + phone.toString(),
     ));
+    var data = jsonDecode(req.body);
+    if (data['status'].toString() == 100.toString()) {
+      showSnake("خطا", data['message'].toString());
+    }
   }
 
   static Future<bool> activeCode(String code) async {
@@ -275,16 +279,18 @@ class ApiService {
     var prefs = await SharedPreferences.getInstance();
     var request = http.MultipartRequest("POST",
         Uri.parse(baseUrl + "update/profile/${prefs.getString("APP_TOKEN")}"));
-    request.files
-        .add(await http.MultipartFile.fromPath('avatar', model.avatar!));
 
+    if (model.avatar! != "") {
+      print("Image Req Added");
+      request.files
+          .add(await http.MultipartFile.fromPath('avatar', model.avatar!));
+    }
     request.fields['full_name'] = model.fullName!;
     request.fields['phone'] = model.phone!;
     request.fields['email'] = model.email!;
     request.fields['id_number'] = model.idNumber!;
     request.fields['born'] = model.born!;
     request.fields['job'] = model.job!;
-    request.fields['password'] = model.password!;
 
     var response = await request.send();
 

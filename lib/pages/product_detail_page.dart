@@ -9,6 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_switch_clipper/flutter_switch_clipper.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/pages/shop_cart_page.dart';
 import 'package:nikan_app/services/api_service.dart';
 import 'package:nikan_app/widgets/comment_widget.dart';
@@ -42,13 +43,13 @@ class ProductDetailPage extends GetView<ProductDetailController> {
       if (controller.isLoading.value) {
         return Scaffold(
           body: Center(
-            child: SpinKitDancingSquare(color: Colors.indigo[800], size: 10.w),
+            child: SpinKitDancingSquare(color: accentColor, size: 10.w),
           ),
         );
       }
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.indigo,
+          backgroundColor: accentColor,
           actions: [
             Obx(() {
               if (controller.isSaving.value) {

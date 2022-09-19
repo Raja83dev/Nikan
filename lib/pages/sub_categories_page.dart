@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:nikan_app/controllers/categories_controller.dart';
 import 'package:sizer/sizer.dart';
@@ -14,8 +15,8 @@ class SubCategoriesPage extends GetView<CategoriesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-        backgroundColor: Colors.indigo,
+      appBar: AppBar(
+        backgroundColor: accentColor,
         centerTitle: true,
         title: AutoSizeText(
           controller.tagList[controller.selectedTagIndex].name,
@@ -38,7 +39,9 @@ class SubCategoriesPage extends GetView<CategoriesController> {
         }
         return LiveList(
           separatorBuilder: (context, index) {
-            return Divider(indent: 5.h,);
+            return Divider(
+              indent: 5.h,
+            );
           },
           padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 5.h),
           delay: Duration(milliseconds: 800),
@@ -51,7 +54,7 @@ class SubCategoriesPage extends GetView<CategoriesController> {
                 end: Offset(0, 0),
               ).animate(animation),
               child: ListTile(
-                onTap: (){},
+                onTap: () {},
                 leading: Icon(Icons.arrow_back_ios_new_outlined),
                 title: AutoSizeText(
                   controller.subTag.items![index].title!,

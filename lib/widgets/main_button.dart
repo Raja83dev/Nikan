@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:sizer/sizer.dart';
 
@@ -11,8 +12,8 @@ class MainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.indigo)),
+      style:
+          ButtonStyle(backgroundColor: MaterialStateProperty.all(accentColor)),
       onPressed: clicked,
       child: SizedBox(
         width: 80.w,

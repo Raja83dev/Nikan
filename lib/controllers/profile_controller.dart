@@ -15,7 +15,6 @@ class ProfileController extends GetxController {
   TextEditingController phoneField = TextEditingController();
   TextEditingController emailField = TextEditingController();
   TextEditingController jobField = TextEditingController();
-  TextEditingController passwordField = TextEditingController();
   TextEditingController idNumberField = TextEditingController();
   TextEditingController bornField = TextEditingController();
 
@@ -26,11 +25,13 @@ class ProfileController extends GetxController {
 
   Future<void> getData() async {
     isloadingProfile.value = true;
+
     userData = await ApiService.getUserDatas();
     await Get.find<ShopCartController>().getAllCarts();
 
     await getSaves();
     print(userData!.phone);
+    uploadimage = userData!.avatar;
     isloadingProfile.value = false;
 
     nameField.text = userData!.fullName!;
@@ -60,11 +61,21 @@ class ProfileController extends GetxController {
   }
 
   void saveUserData() async {
+    var imageData = uploadimage!;
+
+    if (uploadimage == userData!.avatar!) {
+      print("Web Applyed");
+      imageData = "";
+    }
+    if (uploadimage == "100") {
+      print("Mot Avaible");
+      imageData = "";
+    }
+
     isloadingProfile.value = true;
     await ApiService.saveUserData(UserModel(
-      password: passwordField.text,
       fullName: nameField.text,
-      avatar: uploadimage ?? "",
+      avatar: imageData,
       phone: phoneField.text,
       born: bornField.text,
       email: emailField.text,
@@ -84,6 +95,7 @@ class ProfileController extends GetxController {
 
     uploadimage = data!.path;
     print(uploadimage);
+    isloadingProfile.value = false;
   }
 
   void exitAccount() {

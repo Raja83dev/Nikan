@@ -37,7 +37,7 @@ class SavedListPage extends GetView<SavedListController> {
 
         if (controller.saves!.length == 0) {
           return Text(
-            "no".tr,
+            "null_fav_list".tr,
             style: PersianFonts.Vazir.copyWith(
                 fontSize: 20.sp, fontWeight: FontWeight.w800),
           );

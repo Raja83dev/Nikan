@@ -6,3 +6,5 @@ const colorsList = [
   Colors.deepOrange,
   Colors.deepPurple,
 ];
+
+const accentColor = Color.fromRGBO(103, 58, 183, 1);
