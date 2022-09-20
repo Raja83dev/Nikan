@@ -97,8 +97,7 @@ class HomePage extends GetView<HomeController> {
         SliverToBoxAdapter(
           child: Obx(() {
             if (controller.isloadingTags.value) {
-              return Padding(
-                padding: EdgeInsets.only(top: 3.h),
+              return Center(
                 child: SpinKitPouringHourGlass(
                   color: Colors.indigo,
                 ),
@@ -106,49 +105,55 @@ class HomePage extends GetView<HomeController> {
             }
 
             return SizedBox(
-              height: 10.h,
-              child: LiveList(
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.tagList.length,
-                itemBuilder: (BuildContext context, int index,
-                    Animation<double> animation) {
-                  return SlideTransition(
-                    position: Tween<Offset>(
-                      begin: Offset(0, -1),
-                      end: Offset(0, 0),
-                    ).animate(animation),
-                    child: index == 0
-                        ? Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 3.w),
-                            child: IconButton(
+              height: 16.h,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "tags".tr,
+                      style: PersianFonts.Vazir.copyWith(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black54,
+                      ),
+                    ),
+                    Expanded(
+                      child: LiveList(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: controller.tagList.length,
+                        itemBuilder: (BuildContext context, int index,
+                            Animation<double> animation) {
+                          return SlideTransition(
+                            position: Tween<Offset>(
+                              begin: Offset(0, -1),
+                              end: Offset(0, 0),
+                            ).animate(animation),
+                            child: CupertinoButton(
                               onPressed: () {
-                                Get.bottomSheet(SearchPage());
+                                Get.to(SubCategoriesPage(), arguments: [
+                                  controller.tagList[index].id,
+                                  controller.tagList[index].name
+                                ]);
                               },
-                              icon: Icon(
-                                Icons.search,
-                                color: accentColor,
+                              child: AutoSizeText(
+                                controller.tagList[index].name,
+                                maxLines: 1,
+                                style: PersianFonts.Vazir.copyWith(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ),
-                          )
-                        : CupertinoButton(
-                            onPressed: () {
-                              Get.to(SubCategoriesPage(), arguments: [
-                                controller.tagList[index].id,
-                                controller.tagList[index].name
-                              ]);
-                            },
-                            child: AutoSizeText(
-                              controller.tagList[index].name,
-                              maxLines: 1,
-                              style: PersianFonts.Vazir.copyWith(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ),
-                  );
-                },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }),
@@ -173,8 +178,8 @@ class HomePage extends GetView<HomeController> {
                           "best_products_of".tr +
                               controller.productList[i].name!,
                           style: PersianFonts.Vazir.copyWith(
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w800,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w700,
                               color: Colors.black54),
                         ),
                         SizedBox(

@@ -58,7 +58,7 @@ dependencies:
   animate_do:
   image_picker:
   image_cropper:
-  
+  anim_search_bar:  
 
   
   flutter:
