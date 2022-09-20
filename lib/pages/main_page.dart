@@ -42,6 +42,7 @@ class MainPage extends GetView<MainController> {
       body: PersistentTabView(
         context,
         screens: pages,
+        
 
         items: [
           PersistentBottomNavBarItem(
@@ -86,6 +87,13 @@ class MainPage extends GetView<MainController> {
         hideNavigationBarWhenKeyboardShows:
             true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
         decoration: NavBarDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: accentColor.withOpacity(0.8),
+              blurRadius: 3,
+              offset: Offset(-1, -1),
+            )
+          ],
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
         ),
@@ -96,6 +104,7 @@ class MainPage extends GetView<MainController> {
           duration: Duration(milliseconds: 200),
           curve: Curves.ease,
         ),
+
         screenTransitionAnimation: ScreenTransitionAnimation(
           // Screen transition animation on change of selected tab.
           animateTabTransition: true,
@@ -103,7 +112,8 @@ class MainPage extends GetView<MainController> {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle:
-            NavBarStyle.style1, // Choose the nav bar style with this property.
+            NavBarStyle.style14,
+             // Choose the nav bar style with this property.
       ),
     );
   }

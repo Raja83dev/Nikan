@@ -60,12 +60,12 @@ class ProfilePage extends GetView<ProfileController> {
       padding: EdgeInsets.all(5.w),
       width: double.infinity,
       decoration: BoxDecoration(
-        border: Border.all(color: accentColor, width: (0.1).h),
+      
         color: Colors.white,
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2), //color of shadow
+              color: Colors.grey.withOpacity(0.6),  //color of shadow
             spreadRadius: 1, //spread radius
             blurRadius: 7, // blur radius
             offset: Offset(0, 1), // changes position of shadow
@@ -243,12 +243,12 @@ class ProfilePage extends GetView<ProfileController> {
       padding: EdgeInsets.all(5.w),
       width: double.infinity,
       decoration: BoxDecoration(
-        border: Border.all(color: accentColor, width: (0.1).h),
+   
         color: Colors.white,
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2), //color of shadow
+             color: Colors.grey.withOpacity(0.6),  //color of shadow
             spreadRadius: 1, //spread radius
             blurRadius: 7, // blur radius
             offset: Offset(0, 1), // changes position of shadow
@@ -304,12 +304,12 @@ class ProfilePage extends GetView<ProfileController> {
       padding: EdgeInsets.all(5.w),
       width: double.infinity,
       decoration: BoxDecoration(
-        border: Border.all(color: accentColor, width: (0.1).h),
+  
         color: Colors.white,
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2), //color of shadow
+            color: Colors.grey.withOpacity(0.6), //color of shadow
             spreadRadius: 1, //spread radius
             blurRadius: 7, // blur radius
             offset: Offset(0, 1), // changes position of shadow
@@ -337,18 +337,16 @@ class ProfilePage extends GetView<ProfileController> {
                 controller.isloadingProfile.value == false
                     ? Column(
                         children: [
-                          SvgPicture.asset(
-                            "assets/icons/status-processing.svg",
+                          Image.asset(
+                            "assets/icons/status-processing.png",
+                            
                             color: Colors.yellow[700],
                             colorBlendMode: BlendMode.srcIn,
                             fit: BoxFit.cover,
-                            placeholderBuilder: (context) => SizedBox(
-                              width: 12.w,
-                              height: 12.w,
-                            ),
+                    
                             width: 12.w,
                             height: 12.w,
-                            allowDrawingOutsideViewBox: true,
+                        
                           ),
                           SizedBox(
                             width: 2.h,
@@ -366,18 +364,14 @@ class ProfilePage extends GetView<ProfileController> {
                 controller.isloadingProfile.value == false
                     ? Column(
                         children: [
-                          SvgPicture.asset(
-                            "assets/icons/status-delivered.svg",
+                          Image.asset(
+                            "assets/icons/status-delivered.png",
                             color: Colors.green[500],
                             colorBlendMode: BlendMode.srcIn,
                             fit: BoxFit.cover,
-                            placeholderBuilder: (context) => SizedBox(
-                              width: 12.w,
-                              height: 12.w,
-                            ),
+                         
                             width: 12.w,
                             height: 12.w,
-                            allowDrawingOutsideViewBox: true,
                           ),
                           SizedBox(
                             width: 2.h,
@@ -393,18 +387,14 @@ class ProfilePage extends GetView<ProfileController> {
                 controller.isloadingProfile.value == false
                     ? Column(
                         children: [
-                          SvgPicture.asset(
-                            "assets/icons/status-returned.svg",
+                          Image.asset(
+                            "assets/icons/status-returned.png",
                             color: Colors.red,
                             colorBlendMode: BlendMode.srcIn,
                             fit: BoxFit.cover,
-                            placeholderBuilder: (context) => SizedBox(
-                              width: 12.w,
-                              height: 12.w,
-                            ),
+                       
                             width: 12.w,
                             height: 12.w,
-                            allowDrawingOutsideViewBox: true,
                           ),
                           SizedBox(
                             width: 2.h,
@@ -524,11 +514,11 @@ class ProfilePage extends GetView<ProfileController> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: accentColor, width: (0.1).h),
+     
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2), //color of shadow
+                color: Colors.grey.withOpacity(0.6),  //color of shadow
             spreadRadius: 1, //spread radius
             blurRadius: 7, // blur radius
             offset: Offset(0, 1), // changes position of shadow

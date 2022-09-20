@@ -37,6 +37,19 @@ class SubCategoriesPage extends GetView<CategoriesController> {
             ),
           );
         }
+
+        if (controller.subTag.items == null) {
+          return Center(
+            child: Text(
+              "null_category".tr,
+              style: PersianFonts.Vazir.copyWith(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w800,
+                color: Colors.black45,
+              ),
+            ),
+          );
+        }
         return LiveList(
           separatorBuilder: (context, index) {
             return Divider(

@@ -66,15 +66,17 @@ class ForgotPasswordPage extends GetView<LoginController> {
               SizedBox(
                 height: 2.h,
               ),
-              MainButton(
-                  text: controller.isSending.value ? "sending".tr : "send".tr,
-                  clicked: () {
-                    if (controller.isSending.value == true) {
-                      return;
-                    }
-                    //   FocusScope.of(context).nextFocus();
-                    controller.forgotPass();
-                  }),
+              Obx(() {
+                return MainButton(
+                    text: controller.isSending.value ? "sending".tr : "send".tr,
+                    clicked: () {
+                      if (controller.isSending.value == true) {
+                        return;
+                      }
+                      //   FocusScope.of(context).nextFocus();
+                      controller.forgotPass();
+                    });
+              }),
               SizedBox(
                 height: 2.h,
               ),
@@ -82,6 +84,7 @@ class ForgotPasswordPage extends GetView<LoginController> {
                 text: "dont_have_account".tr,
                 btnText: "sign_up".tr,
                 clicked: () {
+                  controller.isSending.value = false;
                   Get.to(() => SignUpPage());
                 },
               ),

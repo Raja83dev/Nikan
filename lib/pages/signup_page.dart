@@ -94,7 +94,8 @@ controller.isSending.value=false;
                 text: "have_account".tr,
                 btnText: "login".tr,
                 clicked: () {
-                  Get.to(()=>LoginPage());
+                  controller.gotoLoginPage();
+                  
                 },
               ),
             ],

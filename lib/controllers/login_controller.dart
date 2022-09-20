@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:nikan_app/pages/login_page.dart';
 import 'package:nikan_app/pages/main_page.dart';
+import 'package:nikan_app/pages/signup_page.dart';
 import 'package:nikan_app/pages/vertification_code_page.dart';
 import 'package:nikan_app/services/api_service.dart';
 import 'package:get/get.dart';
@@ -40,8 +41,24 @@ class LoginController extends GetxController {
   void forgotPass() async {
     isSending.value = true;
     await ApiService.sendPasstoPhoneNumber(phone.text);
-    showSnake("موفق", "کد تایید به شماره تلفن شما ارسال شد");
+
     isSending.value = false;
     Get.off(() => LoginPage());
+  }
+
+  void gotoRegisterPage() {
+    isSending.value = false;
+    phone = TextEditingController();
+    password = TextEditingController();
+    Get.to(SignUpPage());
+  }
+
+
+  
+  void gotoLoginPage() {
+    isSending.value = false;
+    phone = TextEditingController();
+    password = TextEditingController();
+    Get.to(LoginPage());
   }
 }

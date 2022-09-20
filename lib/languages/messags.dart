@@ -81,7 +81,9 @@ class Messages extends Translations {
           "null_fav_list": "لیست علافه مندی ها خالی است",
           "no_name": "بدون نام",
           "not_selected_image": "لطفا یک عکس برای پروفایل خود انتخاب کنید",
-          "i_get_it": "فهمیدم"
+          "i_get_it": "فهمیدم",
+          "cut":"برش",
+          "null_category":"دسته بندی خالی است",
         },
       };
 }

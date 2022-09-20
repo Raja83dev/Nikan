@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/models/cart_product_model.dart';
 import 'package:nikan_app/models/product_detail_model.dart';
 import 'package:nikan_app/models/product_model.dart';
@@ -343,7 +344,8 @@ void showSnake(String title, String message) {
   Get.snackbar(
     title,
     message,
-    backgroundColor: Colors.indigoAccent,
+    
+    backgroundColor: accentColor,
     colorText: Colors.white,
     snackPosition: SnackPosition.BOTTOM,
   );

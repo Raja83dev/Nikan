@@ -123,7 +123,7 @@ controller.isSending.value=false;
                 text: "dont_have_account".tr,
                 btnText: "sign_up".tr,
                 clicked: () {
-                  Get.to(()=>SignUpPage());
+            controller.gotoRegisterPage();
                 },
               ),
             ],

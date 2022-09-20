@@ -1,51 +1,47 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:nikan_app/controllers/splash_controller.dart';
+import 'package:lottie/lottie.dart';
+import 'package:nikan_app/constans.dart';
+import 'package:nikan_app/pages/login_page.dart';
+import 'package:nikan_app/pages/main_page.dart';
+import 'package:nikan_app/services/api_service.dart';
 import 'package:persian_fonts/persian_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
 
-class SplashScreen extends GetView<SplashController> {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
   Widget build(BuildContext context) {
-    controller.checkLogin();
     return Scaffold(
-      backgroundColor: Colors.indigo[400],
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "nikan".tr,
-                style: PersianFonts.Yekan.copyWith(
-                    fontSize: 25.sp,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white),
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              Text(
-                "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با ",
-                textAlign: TextAlign.center,
-                style: PersianFonts.Yekan.copyWith(
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.indigo[100],
-                ),
-              ),
-            ],
-          ),
-          SpinKitChasingDots(
-            size: 10.w,
-            color: Colors.white,
-          ),
-        ],
+      body: Center(
+        child: Lottie.asset(
+          "assets/lottie/splash/19902-splash-screen.json",
+          alignment: Alignment.center,
+          
+          fit: BoxFit.fitWidth,
+          width: 100.w,
+          
+          height: 100.h,
+          onLoaded: (compose) async {
+               var data = await ApiService.loginWithToken();
+                await Future.delayed(Duration(seconds: 2));
+                print("Data Is OK : $data");
+                if (data == true) {
+                  Get.offAll(MainPage());
+                } else {
+                  Get.offAll(LoginPage());
+                }
+          }
+        ),
       ),
     );
   }

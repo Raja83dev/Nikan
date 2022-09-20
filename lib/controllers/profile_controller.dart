@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
 import 'package:nikan_app/models/save_product_model.dart';
 import 'package:nikan_app/models/user_model.dart';
@@ -11,35 +13,32 @@ import 'package:nikan_app/services/api_service.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 
 class ProfileController extends GetxController {
-  TextEditingController nameField = TextEditingController();
-  TextEditingController phoneField = TextEditingController();
-  TextEditingController emailField = TextEditingController();
-  TextEditingController jobField = TextEditingController();
-  TextEditingController idNumberField = TextEditingController();
-  TextEditingController bornField = TextEditingController();
+ 
 
   var isloadingProfile = true.obs;
 
   UserModel? userData;
   List<SaveProductModel>? saves;
 
+  
+
   Future<void> getData() async {
-    isloadingProfile.value = true;
+  
+      print("GETTTT DATAA");
+      isloadingProfile.value = true;
 
-    userData = await ApiService.getUserDatas();
-    await Get.find<ShopCartController>().getAllCarts();
+      userData = await ApiService.getUserDatas();
+      await Get.find<ShopCartController>().getAllCarts();
 
-    await getSaves();
-    print(userData!.phone);
-    uploadimage = userData!.avatar;
-    isloadingProfile.value = false;
+      await getSaves();
+      print(userData!.phone);
+   
+      isloadingProfile.value = false;
 
-    nameField.text = userData!.fullName!;
-    phoneField.text = userData!.phone!;
-    emailField.text = userData!.email!;
-    jobField.text = userData!.job!;
-    idNumberField.text = userData!.idNumber!;
-    bornField.text = userData!.born!;
+
+    
+    
+ 
   }
 
   Future<void> getSaves() async {
@@ -60,44 +59,7 @@ class ProfileController extends GetxController {
     isloadingProfile.value = false;
   }
 
-  void saveUserData() async {
-    var imageData = uploadimage!;
-
-    if (uploadimage == userData!.avatar!) {
-      print("Web Applyed");
-      imageData = "";
-    }
-    if (uploadimage == "100") {
-      print("Mot Avaible");
-      imageData = "";
-    }
-
-    isloadingProfile.value = true;
-    await ApiService.saveUserData(UserModel(
-      fullName: nameField.text,
-      avatar: imageData,
-      phone: phoneField.text,
-      born: bornField.text,
-      email: emailField.text,
-      idNumber: idNumberField.text,
-      job: jobField.text,
-    ));
-    await getData();
-    Get.back();
-    isloadingProfile.value = false;
-  }
-
-  String? uploadimage = "";
-
-  Future<void> selectImage() async {
-    var data =
-        (await ImagePicker.platform.pickImage(source: ImageSource.gallery));
-
-    uploadimage = data!.path;
-    print(uploadimage);
-    isloadingProfile.value = false;
-  }
-
+ 
   void exitAccount() {
     Get.defaultDialog(
       title: "warning".tr,
