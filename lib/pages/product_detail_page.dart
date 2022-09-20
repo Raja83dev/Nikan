@@ -53,7 +53,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
           actions: [
             Obx(() {
               if (controller.isSaving.value) {
-                return SpinKitRotatingCircle(
+                return SpinKitPulse(
                   color: Colors.white,
                 );
               }
@@ -140,7 +140,7 @@ class ProductDetailPage extends GetView<ProductDetailController> {
                           ),
                           _related(),
                           SizedBox(
-                            height: 30.h,
+                            height: 20.h,
                           ),
                         ],
                       ),

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/controllers/home_controller.dart';
 import 'package:nikan_app/pages/product_detail_page.dart';
+import 'package:nikan_app/pages/sub_categories_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:nikan_app/controllers/search_controller.dart';
@@ -20,7 +21,7 @@ class SearchPage extends GetView<SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -75,7 +76,7 @@ class SearchPage extends GetView<SearchController> {
                 ),
               );
             }
-      
+
             return SizedBox(
               height: 8.h,
               child: LiveList(
@@ -89,7 +90,12 @@ class SearchPage extends GetView<SearchController> {
                       end: Offset(0, 0),
                     ).animate(animation),
                     child: CupertinoButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(SubCategoriesPage(), arguments: [
+                          hc.tagList[index].id,
+                          hc.tagList[index].name
+                        ]);
+                      },
                       child: AutoSizeText(
                         hc.tagList[index].name,
                         maxLines: 1,
@@ -114,20 +120,19 @@ class SearchPage extends GetView<SearchController> {
                   ),
                 );
               }
-      
+
               if (controller.products.length == 0) {
                 return Center(
                   child: Text(
                     "not_founded_product".tr,
                     style: PersianFonts.Vazir.copyWith(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black45
-                    ),
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black45),
                   ),
                 );
               }
-      
+
               return LiveList(
                   itemCount: controller.products.length,
                   itemBuilder: (context, index, animation) {

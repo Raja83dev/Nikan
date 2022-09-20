@@ -11,6 +11,7 @@ import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/controllers/main_controller.dart';
 import 'package:nikan_app/pages/search_page.dart';
 import 'package:nikan_app/pages/shop_cart_page.dart';
+import 'package:nikan_app/pages/sub_categories_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:nikan_app/controllers/home_controller.dart';
@@ -26,8 +27,9 @@ class HomePage extends GetView<HomeController> {
       scrollDirection: Axis.vertical,
       slivers: [
         SliverAppBar(
-          backgroundColor: accentColor,
-          elevation: 3,
+          shadowColor: accentColor,
+          backgroundColor: Colors.white,
+          elevation: 5,
           centerTitle: true,
           pinned: true,
           leadingWidth: 20.w,
@@ -35,13 +37,45 @@ class HomePage extends GetView<HomeController> {
             onTap: () {
               Get.to(ShopCartPage());
             },
-            child: Icon(Icons.shopping_cart_outlined),
+            child: Icon(
+              Icons.shopping_cart_outlined,
+              color: accentColor,
+            ),
           ),
-          title: Text(
-            "nikan".tr,
-            style: PersianFonts.Vazir.copyWith(
-              fontSize: 17.sp,
-              fontWeight: FontWeight.w800,
+          title: Image.asset(
+            "assets/icons/nikan_logo.png",
+            height: 5.h,
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 3.w,
+            ),
+            child: CarouselSlider(
+              items: List.generate(controller.sliderList.length, (index) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(5.w),
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: controller.sliderList[index].image,
+                  ),
+                );
+              }),
+              options: CarouselOptions(
+                height: 30.h,
+                aspectRatio: 16 / 9,
+                viewportFraction: 1,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 3),
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                scrollDirection: Axis.horizontal,
+              ),
             ),
           ),
         ),
@@ -82,12 +116,17 @@ class HomePage extends GetView<HomeController> {
                             ),
                           )
                         : CupertinoButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(SubCategoriesPage(), arguments: [
+                                controller.tagList[index].id,
+                                controller.tagList[index].name
+                              ]);
+                            },
                             child: AutoSizeText(
                               controller.tagList[index].name,
                               maxLines: 1,
                               style: PersianFonts.Vazir.copyWith(
-                                fontSize: 14.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black54,
                               ),
@@ -115,26 +154,12 @@ class HomePage extends GetView<HomeController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              controller.productList[i].name!,
-                              style: PersianFonts.Vazir.copyWith(
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.black54),
-                            ),
-                            CupertinoButton(
-                              child: Text(
-                                "show_all".tr,
-                                style: PersianFonts.Vazir.copyWith(
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                              onPressed: () {},
-                            ),
-                          ],
+                        Text(
+                          controller.productList[i].name!,
+                          style: PersianFonts.Vazir.copyWith(
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.black54),
                         ),
                         SizedBox(
                           height: 1.h,

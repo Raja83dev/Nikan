@@ -24,12 +24,11 @@ class ProductButton extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.to(ProductDetailPage(), arguments: id.toString());
- 
       },
       child: Padding(
         padding: EdgeInsets.all(2.w),
         child: Material(
-          elevation: 4,
+          //elevation: 4,
           child: Container(
             padding: EdgeInsets.all(2.w),
             width: 40.w,

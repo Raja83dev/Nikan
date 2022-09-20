@@ -6,11 +6,13 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/models/cart_product_model.dart';
+import 'package:nikan_app/models/city_model.dart';
 import 'package:nikan_app/models/product_detail_model.dart';
 import 'package:nikan_app/models/product_model.dart';
 import 'package:nikan_app/models/products_model.dart';
 import 'package:nikan_app/models/save_product_model.dart';
 import 'package:nikan_app/models/slider_image_model.dart';
+import 'package:nikan_app/models/state_model.dart';
 import 'package:nikan_app/models/sub_category_model.dart';
 import 'package:nikan_app/models/tag_model.dart';
 import 'package:nikan_app/models/user_model.dart';
@@ -32,17 +34,17 @@ class ApiService {
     if (req.statusCode == 200) {
       var data = jsonDecode(req.body);
       if (data['status'].toString() == 100.toString()) {
-        showSnake( data['message']);
+        showSnake(data['message']);
         return false;
       } else {
         print("Show : ${data['token']}");
         var prefs = await SharedPreferences.getInstance();
         prefs.setString("APP_TOKEN", data['token']);
-      
+
         return true;
       }
     }
-    showSnake( "اتصال اینترنت برقرار نیست");
+    showSnake("اتصال اینترنت برقرار نیست");
     return false;
   }
 
@@ -56,12 +58,11 @@ class ApiService {
     if (req.statusCode == 200) {
       var data = jsonDecode(req.body);
       if (data['status'].toString() == 100.toString()) {
-        showSnake( data['message']);
+        showSnake(data['message']);
         return "";
       } else {
         print("Show : ${data['token']}");
 
-     
         return data['token'];
       }
     }
@@ -86,7 +87,7 @@ class ApiService {
       }
       return list;
     } else {
-      showSnake( "اتصال اینترنت برقرار نیست");
+      showSnake("اتصال اینترنت برقرار نیست");
       throw Exception();
     }
   }
@@ -109,7 +110,7 @@ class ApiService {
       }
       return list;
     } else {
-      showSnake( "اتصال اینترنت برقرار نیست");
+      showSnake("اتصال اینترنت برقرار نیست");
       throw Exception();
     }
   }
@@ -176,19 +177,19 @@ class ApiService {
     ));
     var data = jsonDecode(req.body);
     if (data['status'].toString() == 100.toString()) {
-      showSnake( data['message'].toString());
+      showSnake(data['message'].toString());
     }
   }
 
-  static Future<bool> activeCode(String code,String token) async {
- 
+  static Future<bool> activeCode(String code, String token) async {
     print("TOKEN : $token");
     var req = await http.post(
-        Uri.parse(baseUrl + "code?$token&$code"));
+      Uri.parse(baseUrl + "code"),
+      body: {"token": token, "sms": code},
+    );
 
-
-var data = jsonDecode(req.body);
-showSnake(data['message']);
+    var data = jsonDecode(req.body);
+    showSnake(data['message']);
     return req.statusCode == int.parse((data['status']).toString());
   }
 
@@ -297,6 +298,14 @@ showSnake(data['message']);
     request.fields['id_number'] = model.idNumber!;
     request.fields['born'] = model.born!;
     request.fields['job'] = model.job!;
+    if (model.state == "100000" || model.state == "") {
+    } else {
+      request.fields['state'] = model.state!;
+    }
+    if (model.city == "100000" || model.city == "") {
+    } else {
+      request.fields['city'] = model.city!;
+    }
 
     var response = await request.send();
 
@@ -374,6 +383,32 @@ showSnake(data['message']);
     prefs.remove("APP_TOKEN");
     Get.offAll(SplashScreen());
   }
+
+  static Future<List<StateModel>> getStates() async {
+    var req = await http.get(Uri.parse(baseUrl + "state"));
+
+    var list = <StateModel>[];
+    if (req.statusCode == 200) {
+      var datas = jsonDecode(req.body);
+      for (var item in datas) {
+        list.add(StateModel(item['id'], item['title']));
+      }
+    }
+    return list;
+  }
+
+  static Future<List<CityModel>> getCities() async {
+    var req = await http.get(Uri.parse(baseUrl + "city"));
+
+    var list = <CityModel>[];
+    if (req.statusCode == 200) {
+      var datas = jsonDecode(req.body);
+      for (var item in datas) {
+        list.add(CityModel(item['id'], item['title'], item['state_id']));
+      }
+    }
+    return list;
+  }
 }
 
 void showSnake(String message) {
@@ -385,21 +420,23 @@ void showSnake(String message) {
   //   snackPosition: SnackPosition.BOTTOM,
   // );
   Get.showSnackbar(
-
     GetSnackBar(
       animationDuration: Duration(seconds: 1),
       isDismissible: true,
       dismissDirection: DismissDirection.horizontal,
-margin: EdgeInsets.symmetric(vertical: 3.h,horizontal: 4.w),
-
-borderColor: accentColor.withOpacity(0.5),
-borderRadius:6.w,
-barBlur: 10,
-
+      margin: EdgeInsets.symmetric(vertical: 3.h, horizontal: 4.w),
+      borderColor: accentColor.withOpacity(0.5),
+      borderRadius: 6.w,
+      barBlur: 10,
       titleText: Row(
         children: [
-          Icon(Icons.error,color: Colors.red,),
-          SizedBox(width: 2.w,),
+          Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+          SizedBox(
+            width: 2.w,
+          ),
           Text(
             message,
             style: PersianFonts.Vazir.copyWith(
@@ -411,7 +448,6 @@ barBlur: 10,
         ],
       ),
       messageText: SizedBox(),
- 
       backgroundColor: Colors.white,
       snackPosition: SnackPosition.TOP,
     ),

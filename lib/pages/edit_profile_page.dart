@@ -51,7 +51,7 @@ class EditProfilePage extends GetView<EditProfileController> {
                 },
                 child: Builder(
                   builder: (context) {
-        print("Update");
+                    print("Update");
                     if (controller.uploadimage == "100") {
                       print("Avatar is 100");
                       return CircleAvatar(
@@ -130,6 +130,82 @@ class EditProfilePage extends GetView<EditProfileController> {
                 controller: controller.emailField,
                 keyboardType: TextInputType.emailAddress,
                 label: "email".tr,
+              ),
+              InkWell(
+                onTap: () {
+                  controller.openStateSelectDialog();
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                  padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(5.w), //border corner radius
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2), //color of shadow
+                        spreadRadius: 1, //spread radius
+                        blurRadius: 7, // blur radius
+                        offset: Offset(0, 1),
+                      ),
+                      //you can set more BoxShadow() here
+                    ],
+                  ),
+                  child: Text(
+                    controller.selectedState.value == 100000
+                        ? "select_state".tr
+                        : controller.states
+                            .where((element) =>
+                                element.id == controller.selectedState.value)
+                            .first
+                            .title,
+                    style: PersianFonts.Vazir.copyWith(
+                      color: Colors.black45,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  controller.openCitySelectDialog();
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                  padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(5.w), //border corner radius
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2), //color of shadow
+                        spreadRadius: 1, //spread radius
+                        blurRadius: 7, // blur radius
+                        offset: Offset(0, 1),
+                      ),
+                      //you can set more BoxShadow() here
+                    ],
+                  ),
+                  child: Text(
+                    controller.selectedCity.value == 100000
+                        ? "select_city".tr
+                        : controller.cities
+                            .where((element) =>
+                                element.id == controller.selectedCity.value)
+                            .first
+                            .title,
+                    style: PersianFonts.Vazir.copyWith(
+                      color: Colors.black45,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
               ),
               NeuTextField(
                 controller: controller.idNumberField,

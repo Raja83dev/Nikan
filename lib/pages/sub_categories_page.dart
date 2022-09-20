@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/constans.dart';
+import 'package:nikan_app/controllers/sub_category_controller.dart';
 import 'package:nikan_app/pages/archive_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:nikan_app/controllers/categories_controller.dart';
 import 'package:sizer/sizer.dart';
 import 'package:auto_animated/auto_animated.dart';
 
-class SubCategoriesPage extends GetView<CategoriesController> {
+class SubCategoriesPage extends GetView<SubCategoryController> {
   SubCategoriesPage({Key? key}) : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class SubCategoriesPage extends GetView<CategoriesController> {
         backgroundColor: accentColor,
         centerTitle: true,
         title: AutoSizeText(
-          controller.tagList[controller.selectedTagIndex].name,
+          controller.title,
           maxLines: 1,
           style: PersianFonts.Yekan.copyWith(
             fontSize: 15.sp,
@@ -30,7 +31,7 @@ class SubCategoriesPage extends GetView<CategoriesController> {
         ),
       ),
       body: Obx(() {
-        if (controller.isloadingSubTags.value == true) {
+        if (controller.isloading.value == true) {
           return Center(
             child: SpinKitFoldingCube(
               size: 10.w,

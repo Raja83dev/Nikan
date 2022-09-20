@@ -6,6 +6,8 @@ class Messages extends Translations {
   Map<String, Map<String, String>> get keys => {
         'en_US': {},
         'fa_IR': {
+          "select_state": "انتخاب استان",
+          "select_city": "انتخاب شهر",
           "login": "ورود",
           "login_body_text": "موسسه خیریه نیکان فروش انواع کالا و ارایه خدمات",
           "email": "ایمیل",
@@ -82,9 +84,9 @@ class Messages extends Translations {
           "no_name": "بدون نام",
           "not_selected_image": "لطفا یک عکس برای پروفایل خود انتخاب کنید",
           "i_get_it": "فهمیدم",
-          "cut":"برش",
-          "null_category":"دسته بندی خالی است",
-          "not_found_product":"محصولی پیدا نشد"
+          "cut": "برش",
+          "null_category": "دسته بندی خالی است",
+          "not_found_product": "محصولی پیدا نشد"
         },
       };
 }

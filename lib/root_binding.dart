@@ -10,12 +10,15 @@ import 'package:nikan_app/controllers/profile_controller.dart';
 import 'package:nikan_app/controllers/saved_list_controller.dart';
 import 'package:nikan_app/controllers/search_controller.dart';
 import 'package:nikan_app/controllers/shop_cart_controller.dart';
+import 'package:nikan_app/controllers/sub_category_controller.dart';
 import 'package:nikan_app/pages/product_detail_page.dart';
 import 'package:nikan_app/pages/search_page.dart';
 
 class RootBinding extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut<SubCategoryController>(() => SubCategoryController(),
+        fenix: true);
     Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
     Get.lazyPut<MainController>(() => MainController(), fenix: true);
     Get.lazyPut<CategoriesController>(() => CategoriesController(),
@@ -31,8 +34,6 @@ class RootBinding extends Bindings {
     Get.lazyPut<EditProfileController>(() => EditProfileController(),
         fenix: true);
 
-        Get.lazyPut<ArchiveController>(() => ArchiveController(),
-        fenix: true);
-        
+    Get.lazyPut<ArchiveController>(() => ArchiveController(), fenix: true);
   }
 }
