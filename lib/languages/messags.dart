@@ -86,7 +86,8 @@ class Messages extends Translations {
           "i_get_it": "فهمیدم",
           "cut": "برش",
           "null_category": "دسته بندی خالی است",
-          "not_found_product": "محصولی پیدا نشد"
+          "not_found_product": "محصولی پیدا نشد",
+          "best_products_of": "برترین محصولات ",
         },
       };
 }

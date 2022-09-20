@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/controllers/main_controller.dart';
 import 'package:nikan_app/pages/search_page.dart';
@@ -52,31 +53,45 @@ class HomePage extends GetView<HomeController> {
             padding: EdgeInsets.symmetric(
               horizontal: 3.w,
             ),
-            child: CarouselSlider(
-              items: List.generate(controller.sliderList.length, (index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(5.w),
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: controller.sliderList[index].image,
-                  ),
-                );
-              }),
-              options: CarouselOptions(
-                height: 30.h,
-                aspectRatio: 16 / 9,
-                viewportFraction: 1,
-                initialPage: 0,
-                enableInfiniteScroll: true,
-                reverse: false,
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
+            child: Obx(() {
+              if (controller.isloadingSlider.value) {
+                return Lottie.asset(
+                    "assets/lottie/splash/19902-splash-screen.json");
+              }
+              return CarouselSlider(
+                items: List.generate(controller.sliderList.length, (index) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(5.w),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) {
+                        return Lottie.asset(
+                            "assets/lottie/splash/19902-splash-screen.json");
+                      },
+                      errorWidget: (context, url, error) {
+                        print("Error Of Slider Not Image Load");
+                        return SizedBox();
+                      },
+                      imageUrl: controller.sliderList[index].image,
+                    ),
+                  );
+                }),
+                options: CarouselOptions(
+                  height: 30.h,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 1,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                ),
+              );
+            }),
           ),
         ),
         SliverToBoxAdapter(
@@ -155,7 +170,8 @@ class HomePage extends GetView<HomeController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          controller.productList[i].name!,
+                          "best_products_of".tr +
+                              controller.productList[i].name!,
                           style: PersianFonts.Vazir.copyWith(
                               fontSize: 17.sp,
                               fontWeight: FontWeight.w800,
