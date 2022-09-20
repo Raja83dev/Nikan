@@ -11,6 +11,7 @@ import 'package:nikan_app/models/save_product_model.dart';
 import 'package:nikan_app/models/user_model.dart';
 import 'package:nikan_app/services/api_service.dart';
 import 'package:persian_fonts/persian_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
  
@@ -90,7 +91,9 @@ class ProfileController extends GetxController {
             fontWeight: FontWeight.w800,
           ),
         ),
-        onPressed: () {},
+        onPressed: () async {
+ApiService.logOut();
+        },
       ),
     );
   }

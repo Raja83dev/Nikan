@@ -22,8 +22,9 @@ class LoginController extends GetxController {
 
   void signUp() async {
     isSending.value = true;
-    if ((await ApiService.signup(phone.text)) == true) {
-      Get.to(() => VertificationCodePage());
+    var token = await ApiService.signup(phone.text);
+    if (token != "") {
+      Get.to(() => VertificationCodePage(),arguments: token);
     }
     isSending.value = false;
   }
@@ -31,7 +32,7 @@ class LoginController extends GetxController {
   var code = "".obs;
   void activeCode() async {
     isSending.value = true;
-    bool isOk = await ApiService.activeCode(code.value);
+    bool isOk = await ApiService.activeCode(code.value,Get.arguments.toString());
     if (isOk) {
       Get.offAll(() => MainPage());
     }

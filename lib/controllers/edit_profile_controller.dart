@@ -37,6 +37,8 @@ class EditProfileController extends GetxController {
     idNumberField.text = userData!.idNumber!;
     bornField.text = userData!.born!;
 
+    uploadimage = userData!.avatar;
+
     isloading.value = false;
   }
 
@@ -65,8 +67,10 @@ class EditProfileController extends GetxController {
     ));
     await getData();
     await Get.find<ProfileController>().getData();
-    Get.back();
     isloading.value = false;
+    Get.back();
+    
+    
    
   }
 

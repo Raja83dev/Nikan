@@ -51,8 +51,7 @@ class EditProfilePage extends GetView<EditProfileController> {
                 },
                 child: Builder(
                   builder: (context) {
-                    print(
-                        "${controller.uploadimage}=${controller.userData!.avatar}");
+        print("Update");
                     if (controller.uploadimage == "100") {
                       print("Avatar is 100");
                       return CircleAvatar(
@@ -74,7 +73,7 @@ class EditProfilePage extends GetView<EditProfileController> {
                         ),
                       );
                     } else if (controller.userData!.avatar!.length > 4) {
-                      print("Show Other");
+                      print("Show Other ${controller.userData!.avatar!}");
                       return CircleAvatar(
                         radius: 15.w,
                         backgroundImage: CachedNetworkImageProvider(

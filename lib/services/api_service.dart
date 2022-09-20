@@ -14,8 +14,11 @@ import 'package:nikan_app/models/slider_image_model.dart';
 import 'package:nikan_app/models/sub_category_model.dart';
 import 'package:nikan_app/models/tag_model.dart';
 import 'package:nikan_app/models/user_model.dart';
+import 'package:nikan_app/pages/splash_page.dart';
+import 'package:persian_fonts/persian_fonts.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
 const baseUrl = "https://nikan.info/api/v1/";
 
@@ -29,21 +32,21 @@ class ApiService {
     if (req.statusCode == 200) {
       var data = jsonDecode(req.body);
       if (data['status'].toString() == 100.toString()) {
-        showSnake("خطا", data['message']);
+        showSnake( data['message']);
         return false;
       } else {
         print("Show : ${data['token']}");
         var prefs = await SharedPreferences.getInstance();
         prefs.setString("APP_TOKEN", data['token']);
-        showSnake("انجام شد", data['message']);
+      
         return true;
       }
     }
-    showSnake("خطا", "اتصال اینترنت برقرار نیست");
+    showSnake( "اتصال اینترنت برقرار نیست");
     return false;
   }
 
-  static Future<bool> signup(String phone) async {
+  static Future<String> signup(String phone) async {
     var req = await http.post(Uri.parse(baseUrl + "register"), body: {
       "phone": phone,
     });
@@ -53,18 +56,17 @@ class ApiService {
     if (req.statusCode == 200) {
       var data = jsonDecode(req.body);
       if (data['status'].toString() == 100.toString()) {
-        showSnake("خطا", data['message']);
-        return false;
+        showSnake( data['message']);
+        return "";
       } else {
         print("Show : ${data['token']}");
 
-        var prefs = await SharedPreferences.getInstance();
-        prefs.setString("APP_TOKEN", data['token']);
-        return true;
+     
+        return data['token'];
       }
     }
-    showSnake("خطا", "اتصال اینترنت برقرار نیست");
-    return false;
+    showSnake("اتصال اینترنت برقرار نیست");
+    return "";
   }
 
   static Future<List<SliderImageModel>> getSliderImages() async {
@@ -84,7 +86,7 @@ class ApiService {
       }
       return list;
     } else {
-      showSnake("خطا", "اتصال اینترنت برقرار نیست");
+      showSnake( "اتصال اینترنت برقرار نیست");
       throw Exception();
     }
   }
@@ -107,7 +109,7 @@ class ApiService {
       }
       return list;
     } else {
-      showSnake("خطا", "اتصال اینترنت برقرار نیست");
+      showSnake( "اتصال اینترنت برقرار نیست");
       throw Exception();
     }
   }
@@ -174,17 +176,20 @@ class ApiService {
     ));
     var data = jsonDecode(req.body);
     if (data['status'].toString() == 100.toString()) {
-      showSnake("خطا", data['message'].toString());
+      showSnake( data['message'].toString());
     }
   }
 
-  static Future<bool> activeCode(String code) async {
-    var prefs = await SharedPreferences.getInstance();
-    print("TOKEN : ${prefs.getString("APP_TOKEN")}");
+  static Future<bool> activeCode(String code,String token) async {
+ 
+    print("TOKEN : $token");
     var req = await http.post(
-        Uri.parse(baseUrl + "code?${prefs.getString("APP_TOKEN")}&$code"));
-    print("Status Code : " + req.statusCode.toString());
-    return req.statusCode == 200;
+        Uri.parse(baseUrl + "code?$token&$code"));
+
+
+var data = jsonDecode(req.body);
+showSnake(data['message']);
+    return req.statusCode == int.parse((data['status']).toString());
   }
 
   static Future<bool> loginWithToken() async {
@@ -363,14 +368,52 @@ class ApiService {
     print("Archive Length : ${products.length}");
     return products;
   }
+
+  static void logOut() async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.remove("APP_TOKEN");
+    Get.offAll(SplashScreen());
+  }
 }
 
-void showSnake(String title, String message) {
-  Get.snackbar(
-    title,
-    message,
-    backgroundColor: accentColor,
-    colorText: Colors.white,
-    snackPosition: SnackPosition.BOTTOM,
+void showSnake(String message) {
+  // Get.snackbar(
+  //   title,
+  //   message,
+  //   backgroundColor: accentColor,
+  //   colorText: Colors.white,
+  //   snackPosition: SnackPosition.BOTTOM,
+  // );
+  Get.showSnackbar(
+
+    GetSnackBar(
+      animationDuration: Duration(seconds: 1),
+      isDismissible: true,
+      dismissDirection: DismissDirection.horizontal,
+margin: EdgeInsets.symmetric(vertical: 3.h,horizontal: 4.w),
+
+borderColor: accentColor.withOpacity(0.5),
+borderRadius:6.w,
+barBlur: 10,
+
+      titleText: Row(
+        children: [
+          Icon(Icons.error,color: Colors.red,),
+          SizedBox(width: 2.w,),
+          Text(
+            message,
+            style: PersianFonts.Vazir.copyWith(
+              fontSize: 15.sp,
+              color: accentColor,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ],
+      ),
+      messageText: SizedBox(),
+ 
+      backgroundColor: Colors.white,
+      snackPosition: SnackPosition.TOP,
+    ),
   );
 }
