@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:nikan_app/constans.dart';
+import 'package:nikan_app/pages/archive_page.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:nikan_app/controllers/categories_controller.dart';
 import 'package:sizer/sizer.dart';
@@ -67,7 +68,12 @@ class SubCategoriesPage extends GetView<CategoriesController> {
                 end: Offset(0, 0),
               ).animate(animation),
               child: ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.to(ArchivePage(), arguments: [
+                    controller.subTag.items![index].id,
+                    controller.subTag.items![index].title!,
+                  ]);
+                },
                 leading: Icon(Icons.arrow_back_ios_new_outlined),
                 title: AutoSizeText(
                   controller.subTag.items![index].title!,

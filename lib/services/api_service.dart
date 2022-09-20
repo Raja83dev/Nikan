@@ -338,13 +338,37 @@ class ApiService {
     }
     return list;
   }
+
+  static Future<List<CartProductModel>> getArchive(String id) async {
+    var req = await http.get(Uri.parse(baseUrl + "sub/category/archive/$id"));
+
+    List<CartProductModel> products = <CartProductModel>[];
+    if (req.statusCode == 200) {
+      if (req.body.toString() == "100") {
+        print("No Data");
+        return <CartProductModel>[];
+      }
+
+      for (var item in jsonDecode(req.body)) {
+        products.add(CartProductModel(
+            delPrice: item['del_price'].toString(),
+            id: item['id'].toString(),
+            image: item['image'].toString(),
+            price: item['price'].toString(),
+            title: item['title']));
+      }
+    }
+    print("Status Code : ${req.statusCode}");
+
+    print("Archive Length : ${products.length}");
+    return products;
+  }
 }
 
 void showSnake(String title, String message) {
   Get.snackbar(
     title,
     message,
-    
     backgroundColor: accentColor,
     colorText: Colors.white,
     snackPosition: SnackPosition.BOTTOM,

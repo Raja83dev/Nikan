@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:nikan_app/controllers/archive_controller.dart';
 import 'package:nikan_app/controllers/categories_controller.dart';
 import 'package:nikan_app/controllers/edit_profile_controller.dart';
 import 'package:nikan_app/controllers/home_controller.dart';
@@ -29,5 +30,9 @@ class RootBinding extends Bindings {
     Get.lazyPut<SavedListController>(() => SavedListController(), fenix: true);
     Get.lazyPut<EditProfileController>(() => EditProfileController(),
         fenix: true);
+
+        Get.lazyPut<ArchiveController>(() => ArchiveController(),
+        fenix: true);
+        
   }
 }

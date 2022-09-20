@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:nikan_app/constans.dart';
 import 'package:nikan_app/controllers/profile_controller.dart';
 import 'package:nikan_app/controllers/saved_list_controller.dart';
 import 'package:nikan_app/pages/product_detail_page.dart';
@@ -19,7 +20,7 @@ class SavedListPage extends GetView<SavedListController> {
     controller.getSaves();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo,
+        backgroundColor: accentColor,
         elevation: 3,
         centerTitle: true,
         title: Text(
@@ -36,10 +37,13 @@ class SavedListPage extends GetView<SavedListController> {
         }
 
         if (controller.saves!.length == 0) {
-          return Text(
-            "null_fav_list".tr,
-            style: PersianFonts.Vazir.copyWith(
-                fontSize: 20.sp, fontWeight: FontWeight.w800),
+          return Center(
+            child: Text(
+              "null_fav_list".tr,
+              style: PersianFonts.Vazir.copyWith(
+                  color: Colors.black45,
+                  fontSize: 20.sp, fontWeight: FontWeight.w800),
+            ),
           );
         }
         return SingleChildScrollView(

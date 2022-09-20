@@ -78,12 +78,13 @@ class Messages extends Translations {
               "میخواهید از اکانت خود خارج شوید؟",
           "no": "خیر",
           "ok": "بله",
-          "null_fav_list": "لیست علافه مندی ها خالی است",
+          "null_fav_list": "لیست علاقه مندی ها خالی است",
           "no_name": "بدون نام",
           "not_selected_image": "لطفا یک عکس برای پروفایل خود انتخاب کنید",
           "i_get_it": "فهمیدم",
           "cut":"برش",
           "null_category":"دسته بندی خالی است",
+          "not_found_product":"محصولی پیدا نشد"
         },
       };
 }
