@@ -65,7 +65,7 @@ class ProfilePage extends GetView<ProfileController> {
         borderRadius: BorderRadius.circular(30), //border corner radius
         boxShadow: [
           BoxShadow(
-              color: Colors.grey.withOpacity(0.6),  //color of shadow
+              color: Colors.grey.withOpacity(0.6), 
             spreadRadius: 1, //spread radius
             blurRadius: 7, // blur radius
             offset: Offset(0, 1), // changes position of shadow

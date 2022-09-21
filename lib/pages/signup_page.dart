@@ -33,7 +33,7 @@ controller.isSending.value=false;
                 height: 30.h,
                 child: Image.asset(
                   "assets/icons/nikan_logo.png",
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               SizedBox(

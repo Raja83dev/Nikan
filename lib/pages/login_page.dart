@@ -16,8 +16,8 @@ import 'package:lottie/lottie.dart';
 class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
-controller.isSending.value=false;
- 
+    controller.isSending.value = false;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -33,7 +33,7 @@ controller.isSending.value=false;
                 height: 30.h,
                 child: Image.asset(
                   "assets/icons/nikan_logo.png",
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               Material(
@@ -75,7 +75,7 @@ controller.isSending.value=false;
                         height: 2.h,
                       ),
                       CustomizedTextField(
-                        controller: controller.phone,
+                          controller: controller.phone,
                           hintText: "phone".tr,
                           icon: Icons.phone_outlined,
                           keyboardtype: TextInputType.phone,
@@ -91,7 +91,7 @@ controller.isSending.value=false;
                         obscure: true,
                         suffix: TextButton(
                           onPressed: () {
-                            Get.to(()=>ForgotPasswordPage());
+                            Get.to(() => ForgotPasswordPage());
                           },
                           child: Text(
                             "forgot_password".tr,
@@ -99,7 +99,6 @@ controller.isSending.value=false;
                           ),
                         ),
                       ),
-                   
                       SizedBox(
                         height: 2.h,
                       ),
@@ -123,7 +122,7 @@ controller.isSending.value=false;
                 text: "dont_have_account".tr,
                 btnText: "sign_up".tr,
                 clicked: () {
-            controller.gotoRegisterPage();
+                  controller.gotoRegisterPage();
                 },
               ),
             ],

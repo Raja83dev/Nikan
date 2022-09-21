@@ -30,10 +30,12 @@ class HomePage extends GetView<HomeController> {
         SliverAppBar(
           shadowColor: accentColor,
           backgroundColor: Colors.white,
+          
           elevation: 5,
           centerTitle: true,
           pinned: true,
           leadingWidth: 20.w,
+          
           leading: InkWell(
             onTap: () {
               Get.to(ShopCartPage());
@@ -48,6 +50,8 @@ class HomePage extends GetView<HomeController> {
             height: 5.h,
           ),
         ),
+
+         
         SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.symmetric(
